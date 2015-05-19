@@ -1,0 +1,42 @@
+{
+	"scenes" : [
+		{
+			"name" : "intro",
+			"actors" : [
+				{
+					"name" : "main_camera",
+                    "type" : "camera",
+                    "type_qualifier" : "main",
+                    "create_on_scene_init" : true,
+                    "persistent" : true,
+                    "active" : true,
+					"components" : [
+						{
+							"type" : "camera_component",
+							"fov"  : 60.0,
+							"aspect" : "window",
+							"near" : 0.1,
+							"far" : 1000.0,
+							"translation" : [0.0,0.0,10.0]
+						}
+					]
+				},
+				{
+					"name" : "test_actor",
+                    "type" : "actor",
+                    "type_qualifier" : "static",
+                    "create_on_scene_init" : true,
+                    "persistent" : true,
+                    "active" : true,
+					"components" : [
+						{
+							"type" : "geom_teapot",
+							"translation" : [0.0,0.0,0.0]
+						}
+					]
+				}
+			]
+ 		}
+
+	]
+}

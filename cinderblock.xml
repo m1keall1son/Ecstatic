@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+	name="Ecstatic"
+	id="org.libcinder.ecstatic"
+	author="Mike Allison"
+	version="0.0.1"
+	>
+	<supports os="macosx" />
+	
+	<includePath>include</includePath>
+    <headerPattern>include/*.h</headerPattern>
+    <headerPattern>include/Event/*.h</headerPattern>
+    <headerPattern>include/Actor/*.h</headerPattern>
+    <headerPattern>include/Components/*.h</headerPattern>
+    <headerPattern>include/Renderer/*.h</headerPattern>
+    <headerPattern>include/Scene/*.h</headerPattern>
+    <headerPattern>include/System/*.h</headerPattern>
+    <headerPattern>include/System/*.hpp</headerPattern>
+    <sourcePattern>src/*.cpp</sourcePattern>
+	<sourcePattern>src/Event/*.cpp</sourcePattern>
+    <sourcePattern>src/Actor/*.cpp</sourcePattern>
+    <sourcePattern>src/Components/*.cpp</sourcePattern>
+    <sourcePattern>src/Renderer/*.cpp</sourcePattern>
+    <sourcePattern>src/Scene/*.cpp</sourcePattern>
+    <sourcePattern>src/System/*.cpp</sourcePattern>
+
+</block>
+</cinder>
