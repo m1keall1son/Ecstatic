@@ -15,13 +15,21 @@
 		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
 		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
 		32073B408D194BA4827CDA1A /* ActorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5D10753C135A4E49A281C013 /* ActorManager.cpp */; };
-		404A0A75F5C84702879152D7 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ABC356053A843D2835048E2 /* Renderer.cpp */; };
 		4D50689423F947BCA1E2DB4C /* TransformComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6D279BDDAE44300B8CB6C77 /* TransformComponent.cpp */; };
 		4E453BDCC17B4D7B823E8E3F /* ActorFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB8A765D33ED4E3591380E78 /* ActorFactory.cpp */; };
 		4F85E2F11B0BD946005BDFD7 /* Components.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2EB1B0BD946005BDFD7 /* Components.cpp */; };
 		4F85E2F21B0BD946005BDFD7 /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2ED1B0BD946005BDFD7 /* Events.cpp */; };
 		4F85E2F31B0BD946005BDFD7 /* Scenes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2EF1B0BD946005BDFD7 /* Scenes.cpp */; };
 		4F85E2F51B0BD94C005BDFD7 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F85E2F41B0BD94C005BDFD7 /* config.json */; };
+		4FCBB0AD1B0E7A3F00BCE8C0 /* LightManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */; };
+		4FCBB0B11B0E7C0600BCE8C0 /* CameraManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0AF1B0E7C0600BCE8C0 /* CameraManager.cpp */; };
+		4FCBB0B41B0E7E0200BCE8C0 /* CameraComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0B21B0E7E0200BCE8C0 /* CameraComponent.cpp */; };
+		4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */; };
+		4FCBB0C01B0E9C6500BCE8C0 /* DynamicLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */; };
+		4FCBB0C31B0E9C8A00BCE8C0 /* StaticLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */; };
+		4FCBB0C61B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */; };
+		4FCBB0CC1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */; };
+		4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
 		53CB2E4C02864F439668F7A2 /* UpdatableComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E6DD28E355D4B528CE3DAAE /* UpdatableComponentBase.cpp */; };
@@ -72,6 +80,25 @@
 		4F85E2F01B0BD946005BDFD7 /* Scenes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenes.h; path = ../src/Scenes.h; sourceTree = "<group>"; };
 		4F85E2F41B0BD94C005BDFD7 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../assets/config.json; sourceTree = "<group>"; };
 		4F85E2F61B0BD9BD005BDFD7 /* Manager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Manager.hpp; path = ../../../include/System/Manager.hpp; sourceTree = "<group>"; };
+		4FCBB0AB1B0E7A1300BCE8C0 /* LightManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LightManager.h; path = ../src/LightManager.h; sourceTree = "<group>"; };
+		4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightManager.cpp; path = ../src/LightManager.cpp; sourceTree = "<group>"; };
+		4FCBB0AE1B0E7A7B00BCE8C0 /* AppCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppCommon.h; path = ../src/AppCommon.h; sourceTree = "<group>"; };
+		4FCBB0AF1B0E7C0600BCE8C0 /* CameraManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraManager.cpp; path = ../src/CameraManager.cpp; sourceTree = "<group>"; };
+		4FCBB0B01B0E7C0600BCE8C0 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraManager.h; path = ../src/CameraManager.h; sourceTree = "<group>"; };
+		4FCBB0B21B0E7E0200BCE8C0 /* CameraComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraComponent.cpp; path = ../src/CameraComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0B31B0E7E0200BCE8C0 /* CameraComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraComponent.h; path = ../src/CameraComponent.h; sourceTree = "<group>"; };
+		4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightComponentBase.cpp; path = ../src/LightComponentBase.cpp; sourceTree = "<group>"; };
+		4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightComponentBase.h; path = ../src/LightComponentBase.h; sourceTree = "<group>"; };
+		4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DynamicLightComponent.cpp; path = ../src/DynamicLightComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0BF1B0E9C6500BCE8C0 /* DynamicLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLightComponent.h; path = ../src/DynamicLightComponent.h; sourceTree = "<group>"; };
+		4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StaticLightComponent.cpp; path = ../src/StaticLightComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0C21B0E9C8A00BCE8C0 /* StaticLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticLightComponent.h; path = ../src/StaticLightComponent.h; sourceTree = "<group>"; };
+		4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShadowLightComponent.cpp; path = ../src/ShadowLightComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0C51B0E9C9D00BCE8C0 /* ShadowLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowLightComponent.h; path = ../src/ShadowLightComponent.h; sourceTree = "<group>"; };
+		4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrustumCullComponent.cpp; path = ../src/FrustumCullComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0CB1B0F6AC200BCE8C0 /* FrustumCullComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrustumCullComponent.h; path = ../src/FrustumCullComponent.h; sourceTree = "<group>"; };
+		4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppSceneBase.cpp; path = ../src/AppSceneBase.cpp; sourceTree = "<group>"; };
+		4FCBB0CE1B0F7C0B00BCE8C0 /* AppSceneBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppSceneBase.h; path = ../src/AppSceneBase.h; sourceTree = "<group>"; };
 		50ABF73EA4424DB7AC9E1C70 /* Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Controller.h; path = ../../../include/System/Controller.h; sourceTree = "<group>"; };
 		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		5323E6B50EAFCA7E003A9687 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -91,7 +118,6 @@
 		85BCEE71171746DB8D6D464F /* FactoryBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FactoryBase.h; path = ../../../include/Actor/FactoryBase.h; sourceTree = "<group>"; };
 		86808DD870EB41F0BF7BB6FC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Common.h; path = ../../../include/System/Common.h; sourceTree = "<group>"; };
 		87B38D37FC7D478A8357C510 /* Common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Common.cpp; path = ../../../src/System/Common.cpp; sourceTree = "<group>"; };
-		8ABC356053A843D2835048E2 /* Renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Renderer.cpp; path = ../../../src/Renderer/Renderer.cpp; sourceTree = "<group>"; };
 		8C6BD0684ADE4E29816F07A8 /* ComponentBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ComponentBase.cpp; path = ../../../src/Components/ComponentBase.cpp; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* System_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = System_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958C586258A741D3878AC2C2 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resources.h; path = ../include/Resources.h; sourceTree = "<group>"; };
@@ -104,7 +130,6 @@
 		ADEEDD55EC1E451196C8BE1F /* System_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = System_testApp.cpp; path = ../src/System_testApp.cpp; sourceTree = "<group>"; };
 		BC2842B9F208420D83CF85F3 /* Controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Controller.cpp; path = ../../../src/System/Controller.cpp; sourceTree = "<group>"; };
 		C62F6F030CE748B18F275CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D23A5DF4850F4E7A89E7EA51 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Renderer.h; path = ../../../include/Renderer/Renderer.h; sourceTree = "<group>"; };
 		DB1D096C934E48C886F2DD5D /* ConfigManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ConfigManager.cpp; path = ../../../src/System/ConfigManager.cpp; sourceTree = "<group>"; };
 		DB8A765D33ED4E3591380E78 /* ActorFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ActorFactory.cpp; path = ../../../src/Actor/ActorFactory.cpp; sourceTree = "<group>"; };
 		DEDB9E58BC2A4F03874DA9B7 /* SceneFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SceneFactory.h; path = ../../../include/Scene/SceneFactory.h; sourceTree = "<group>"; };
@@ -155,24 +180,16 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4FCBB0BA1B0E8B7600BCE8C0 /* Scenes */,
+				4FCBB0B81B0E8B4100BCE8C0 /* Components */,
+				4FCBB0B71B0E8B3100BCE8C0 /* Events */,
+				4FCBB0B61B0E8B2300BCE8C0 /* Camera */,
+				4FCBB0B51B0E8B1600BCE8C0 /* Lights */,
+				4FCBB0AE1B0E7A7B00BCE8C0 /* AppCommon.h */,
 				4F85E2F41B0BD94C005BDFD7 /* config.json */,
-				4F85E2EB1B0BD946005BDFD7 /* Components.cpp */,
-				4F85E2EC1B0BD946005BDFD7 /* Components.h */,
-				4F85E2ED1B0BD946005BDFD7 /* Events.cpp */,
-				4F85E2EE1B0BD946005BDFD7 /* Events.h */,
-				4F85E2EF1B0BD946005BDFD7 /* Scenes.cpp */,
-				4F85E2F01B0BD946005BDFD7 /* Scenes.h */,
 				ADEEDD55EC1E451196C8BE1F /* System_testApp.cpp */,
 			);
 			name = Source;
-			sourceTree = "<group>";
-		};
-		0821D7F9DA8D455D9F9E87E6 /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				D23A5DF4850F4E7A89E7EA51 /* Renderer.h */,
-			);
-			name = Renderer;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -268,7 +285,6 @@
 				147A3B5C97224E8BA6F3FC80 /* Event */,
 				7772884098B34E0EBA9288C3 /* Actor */,
 				B0BB9AE9088E4D9D84EE6C04 /* Components */,
-				0821D7F9DA8D455D9F9E87E6 /* Renderer */,
 				4325E239A10D48438A03FC32 /* Scene */,
 				A587F8F54BD24AEF868B46F9 /* System */,
 			);
@@ -282,6 +298,65 @@
 				DEDB9E58BC2A4F03874DA9B7 /* SceneFactory.h */,
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		4FCBB0B51B0E8B1600BCE8C0 /* Lights */ = {
+			isa = PBXGroup;
+			children = (
+				4FCBB0AB1B0E7A1300BCE8C0 /* LightManager.h */,
+				4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */,
+				4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */,
+				4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponentBase.h */,
+				4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */,
+				4FCBB0BF1B0E9C6500BCE8C0 /* DynamicLightComponent.h */,
+				4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */,
+				4FCBB0C21B0E9C8A00BCE8C0 /* StaticLightComponent.h */,
+				4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */,
+				4FCBB0C51B0E9C9D00BCE8C0 /* ShadowLightComponent.h */,
+			);
+			name = Lights;
+			sourceTree = "<group>";
+		};
+		4FCBB0B61B0E8B2300BCE8C0 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				4FCBB0B21B0E7E0200BCE8C0 /* CameraComponent.cpp */,
+				4FCBB0B31B0E7E0200BCE8C0 /* CameraComponent.h */,
+				4FCBB0AF1B0E7C0600BCE8C0 /* CameraManager.cpp */,
+				4FCBB0B01B0E7C0600BCE8C0 /* CameraManager.h */,
+			);
+			name = Camera;
+			sourceTree = "<group>";
+		};
+		4FCBB0B71B0E8B3100BCE8C0 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				4F85E2ED1B0BD946005BDFD7 /* Events.cpp */,
+				4F85E2EE1B0BD946005BDFD7 /* Events.h */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		4FCBB0B81B0E8B4100BCE8C0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4FCBB0CB1B0F6AC200BCE8C0 /* FrustumCullComponent.h */,
+				4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */,
+				4F85E2EB1B0BD946005BDFD7 /* Components.cpp */,
+				4F85E2EC1B0BD946005BDFD7 /* Components.h */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		4FCBB0BA1B0E8B7600BCE8C0 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				4F85E2EF1B0BD946005BDFD7 /* Scenes.cpp */,
+				4F85E2F01B0BD946005BDFD7 /* Scenes.h */,
+				4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */,
+				4FCBB0CE1B0F7C0B00BCE8C0 /* AppSceneBase.h */,
+			);
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 		6043F2DEC4694AB69A3CF067 /* Ecstatic */ = {
@@ -338,19 +413,10 @@
 				87DC0F893C2B4CFC9B302BBE /* Event */,
 				04A3C5E3E444424E87E4DEE7 /* Actor */,
 				CC7E46CEE4F34F63AADE9C61 /* Components */,
-				A2380CD74DC14F4192B90309 /* Renderer */,
 				966E0826CEDE4DD98758305F /* Scene */,
 				75EB578B0D0D4F9698852AB2 /* System */,
 			);
 			name = src;
-			sourceTree = "<group>";
-		};
-		A2380CD74DC14F4192B90309 /* Renderer */ = {
-			isa = PBXGroup;
-			children = (
-				8ABC356053A843D2835048E2 /* Renderer.cpp */,
-			);
-			name = Renderer;
 			sourceTree = "<group>";
 		};
 		A587F8F54BD24AEF868B46F9 /* System */ = {
@@ -456,25 +522,33 @@
 			files = (
 				B00953FF67BA483D893A8330 /* System_testApp.cpp in Sources */,
 				A272C6A0F29A438680E8A935 /* EventManager.cpp in Sources */,
+				4FCBB0C61B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp in Sources */,
+				4FCBB0AD1B0E7A3F00BCE8C0 /* LightManager.cpp in Sources */,
 				DBAF221422B740319FA38CC8 /* EventManagerBase.cpp in Sources */,
+				4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponentBase.cpp in Sources */,
 				C1A7F68B158043E1B4712EA5 /* SystemEvents.cpp in Sources */,
 				5625F89DA6854AF2827AA41D /* Actor.cpp in Sources */,
+				4FCBB0B41B0E7E0200BCE8C0 /* CameraComponent.cpp in Sources */,
 				4E453BDCC17B4D7B823E8E3F /* ActorFactory.cpp in Sources */,
 				4F85E2F31B0BD946005BDFD7 /* Scenes.cpp in Sources */,
 				32073B408D194BA4827CDA1A /* ActorManager.cpp in Sources */,
 				5D2F2DB5AB14493397985D0E /* FactoryBase.cpp in Sources */,
 				BADCA38BC2AB4F26A539D85D /* ComponentBase.cpp in Sources */,
 				4F85E2F21B0BD946005BDFD7 /* Events.cpp in Sources */,
+				4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */,
 				D3A8C817515843A891ABA004 /* ComponentFactory.cpp in Sources */,
 				B4D30174693E431790181465 /* RenderableComponentBase.cpp in Sources */,
 				4D50689423F947BCA1E2DB4C /* TransformComponent.cpp in Sources */,
 				53CB2E4C02864F439668F7A2 /* UpdatableComponentBase.cpp in Sources */,
+				4FCBB0CC1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp in Sources */,
 				4F85E2F11B0BD946005BDFD7 /* Components.cpp in Sources */,
+				4FCBB0C31B0E9C8A00BCE8C0 /* StaticLightComponent.cpp in Sources */,
 				82CCC0781273462DBBAE9EBA /* VisibleComponentBase.cpp in Sources */,
-				404A0A75F5C84702879152D7 /* Renderer.cpp in Sources */,
 				FB9EADD0E784483D92D2975D /* Scene.cpp in Sources */,
 				CFEEA9982FBF4AA8B1416019 /* Common.cpp in Sources */,
 				AC880E7770E04F1199B4B589 /* ConfigManager.cpp in Sources */,
+				4FCBB0B11B0E7C0600BCE8C0 /* CameraManager.cpp in Sources */,
+				4FCBB0C01B0E9C6500BCE8C0 /* DynamicLightComponent.cpp in Sources */,
 				5709DC3FAD5F4141B11A8822 /* Controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -57,6 +57,7 @@ using ActorTypeQualifier = std::string;
 ///SCENE
     
 using SceneRef = std::shared_ptr< class Scene>;
+using SceneId = IdType;
 using SceneWeakRef = std::weak_ptr< class Scene>;
 using SceneFactoryRef = std::shared_ptr< class SceneFactory >;
     

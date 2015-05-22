@@ -59,12 +59,12 @@ namespace ec {
     
     EventType ReturnActorCreatedEvent::TYPE = getHash("return_actor_created_event");
     
-    ReturnActorCreatedEventRef ReturnActorCreatedEvent::create(  const ActorWeakRef &actor )
+    ReturnActorCreatedEventRef ReturnActorCreatedEvent::create( const SceneId &scene_id, const ActorWeakRef &actor )
     {
-        return ReturnActorCreatedEventRef( new ReturnActorCreatedEvent( actor ) );
+        return ReturnActorCreatedEventRef( new ReturnActorCreatedEvent( scene_id, actor ) );
     }
     
-    ReturnActorCreatedEvent::ReturnActorCreatedEvent( const ActorWeakRef &actor ) : ec::EventData( cinder::app::getElapsedSeconds() ), mWeakActor( actor ){}
+    ReturnActorCreatedEvent::ReturnActorCreatedEvent( const SceneId &scene_id, const ActorWeakRef &actor ) : ec::EventData( cinder::app::getElapsedSeconds() ), mWeakActor( actor ), mSceneId(scene_id){}
     
     const char* ReturnActorCreatedEvent::getName() const
     {

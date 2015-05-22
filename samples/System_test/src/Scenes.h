@@ -10,11 +10,9 @@
 #include "Common.h"
 #include "SceneFactory.h"
 #include "Scene.h"
-
-enum SceneCameraType { MAIN_CAMERA, DEBUG_CAMERA };
-enum LightType { SUN, POINT };
-
-using SceneFactoryRef = std::shared_ptr<class SceneFactory>;
+#include "Components.h"
+#include "AppCommon.h"
+#include "AppSceneBase.h"
 
 class SceneFactory : public ec::SceneFactory {
     
@@ -25,25 +23,20 @@ public:
     
 };
 
-using IntroSceneRef = std::shared_ptr<class IntroScene>;
-
-class IntroScene : public ec::Scene {
+class IntroScene : public AppSceneBase {
     
 public:
     
     static IntroSceneRef create( const std::string& name );
-    
+
     void update() override;
     void preDraw() override;
     void draw() override;
     void postDraw() override;
-    void logActorType( ec::ReturnActorCreatedEventRef event )override;
     
 private:
     
     IntroScene( const std::string& name );
-    
-    std::map< SceneCameraType, ec::ActorUId > mCameras;
-    std::map< LightType, ec::ActorUId > mLights;
 
+    
 };

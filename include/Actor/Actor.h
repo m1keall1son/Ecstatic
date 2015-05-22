@@ -21,9 +21,8 @@ class Actor {
     
 public:
     
-    
     template<class Component>
-    inline std::weak_ptr<Component> getComponent( ComponentType compType );
+    inline std::weak_ptr<Component> getComponent();
     
     bool            hasComponent( const ComponentType &type );
     ActorId         getId() const;
@@ -60,13 +59,13 @@ private:
 };
     
 template<class Component>
-inline std::weak_ptr<Component> Actor::getComponent( ComponentType compType )
+inline std::weak_ptr<Component> Actor::getComponent()
 {
-    auto found = mComponents.find( compType );
+    auto found = mComponents.find( Component::TYPE );
     if( found != mComponents.end() ) {
         return std::weak_ptr<Component>( std::dynamic_pointer_cast<Component>(found->second) );
     }
-    CI_LOG_E("Component type: "+std::to_string(compType)+" not found");
+    CI_LOG_E("Component type: "+std::to_string(Component::TYPE)+" not found");
     return std::weak_ptr<Component>();
 }
     

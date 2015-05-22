@@ -12,6 +12,7 @@
 #include "ConfigManager.h"
 #include "ActorFactory.h"
 #include "Controller.h"
+#include "Scene.h"
 #include "SystemEvents.h"
 
 namespace ec {
@@ -55,7 +56,8 @@ void ActorManager::handleCreateActor(EventDataRef event)
     auto init  = ConfigManager::get()->retreiveActorConfig( e->getReferenceScene(), e->getReferenceName() );
     auto actor = ActorFactory::get()->createActor( init );
     mActors.insert( std::make_pair(actor->getUId(), actor) );
-    Controller::get()->eventManager()->triggerEvent( ReturnActorCreatedEvent::create(actor) );
+    auto scene_id = Controller::get()->scene().lock()->getId();
+    Controller::get()->eventManager()->triggerEvent( ReturnActorCreatedEvent::create( scene_id, actor) );
 }
     
     

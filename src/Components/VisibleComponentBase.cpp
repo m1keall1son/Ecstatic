@@ -17,7 +17,7 @@ namespace ec{
 
     ComponentType CullableComponentBase::TYPE = 0x003;
     
-    CullableComponentBase::CullableComponentBase()
+    CullableComponentBase::CullableComponentBase( Actor* context ): ComponentBase( context )
     {
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &CullableComponentBase::handleSceneChange), SceneChangeEvent::TYPE);
         registerHandler();

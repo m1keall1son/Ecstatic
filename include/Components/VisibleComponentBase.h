@@ -12,7 +12,7 @@
 
 namespace ec {
     
-    class CullableComponentBase : virtual public ComponentBase {
+    class CullableComponentBase : public ComponentBase {
         
     public:
         
@@ -24,14 +24,12 @@ namespace ec {
         
     protected:
         
-        CullableComponentBase();
+        CullableComponentBase( Actor* context );
         
         void handleCulling( EventDataRef );
         void handleSceneChange( EventDataRef );
         void registerHandler();
-        
-    private:
-        
+            
         bool mIsVisible;
         
     };

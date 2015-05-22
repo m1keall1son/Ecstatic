@@ -17,7 +17,11 @@ class Scene {
 public:
         
     inline EventManagerRef manager(){ return mSceneManager; }
+    
     inline const std::string& getName(){ return mName; }
+    
+    inline const SceneId            getId()const{ return mId; }
+    inline SceneId                  getId(){ return mId; }
     
     virtual ~Scene();
     
@@ -29,11 +33,12 @@ protected:
     virtual void                    initialize( const std::vector<ActorUId>& persistent_actors = std::vector<ActorUId>(0) );
     virtual std::vector<ActorUId>   shutdown();
     
+
+    
     virtual void                    update(); //has to update the event manager
     virtual void                    preDraw() = 0;
     virtual void                    draw() = 0;
     virtual void                    postDraw() = 0;
-    virtual void                    logActorType( ReturnActorCreatedEventRef event ) = 0;
     
     ActorWeakRef                    getActor( const ActorUId& _id );
     virtual void                    handleReturnActorCreate( EventDataRef );
@@ -44,6 +49,7 @@ protected:
     std::string                                 mName;
     std::map<ActorUId, ActorWeakRef>            mActors;
     EventManagerRef                             mSceneManager;
+    SceneId                                     mId;
     
     friend class                     Controller;
 };

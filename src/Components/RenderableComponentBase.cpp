@@ -16,7 +16,8 @@
 //
 //
 
-#include "VisibleComponentBase.h"
+#include "RenderableComponentBase.h"
+#include "FrustumCullComponent.h"
 #include "SystemEvents.h"
 #include "Controller.h"
 #include "Scene.h"
@@ -25,7 +26,7 @@
 
 namespace ec{
     
-    ComponentType RenderableComponentBase::TYPE = TransformComponent::TYPE | 0x004;
+    ComponentType RenderableComponentBase::TYPE = 0x004;
     
     RenderableComponentBase::RenderableComponentBase()
     {
@@ -53,7 +54,8 @@ namespace ec{
     
     void RenderableComponentBase::handleDraw( EventDataRef event )
     {
-        if(isVisible())
+        auto cull = mContext->getComponent<FrustumCullComponent>().lock();
+        if( cull->isVisible() )
             draw();
     }
     

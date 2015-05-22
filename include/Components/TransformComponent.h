@@ -15,7 +15,7 @@ namespace ec {
 	
     //TODO: transform component must have target (pointer to another actor location), lookat, view direction etc.
 	
-class TransformComponent : virtual public ComponentBase {
+class TransformComponent : public ComponentBase {
 public:
 	
     static ComponentType TYPE;
@@ -86,9 +86,15 @@ public:
 		delete mComponents;
 	}
     
-    virtual bool initialize( const ci::JsonTree &tree );
-    virtual ci::JsonTree serialize();
-	
+    static TransformComponentRef create( Actor* context );
+    
+    virtual bool initialize( const ci::JsonTree &tree )override;
+    virtual ci::JsonTree serialize()override;
+
+    virtual const ec::ComponentNameType   getName() const override;
+    virtual const ec::ComponentUId        getId() const override;
+    virtual const ec::ComponentType       getType() const override;
+    
 	inline const ci::mat4& getModelMatrix() const { return mComponents->getModelMatrix(); }
 	
 	//! Sets the Translation of the write component
@@ -115,8 +121,8 @@ public:
 	
 protected:
     
-    TransformComponent();
-    
+    TransformComponent( Actor* context );
+    ComponentUId mId;
 	Transformables *mComponents;
 };
 	

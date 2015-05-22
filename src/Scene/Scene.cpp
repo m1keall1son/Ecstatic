@@ -26,7 +26,7 @@ namespace ec {
         Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
     }
 
-    Scene::Scene( const std::string& name ):mName(name)
+    Scene::Scene( const std::string& name ):mName(name), mId( getHash(name) )
     {
         mSceneManager = EventManager::create("Scene "+mName+" Manager");
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );

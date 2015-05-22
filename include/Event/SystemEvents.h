@@ -69,7 +69,7 @@ public:
     
     static EventType TYPE;
     
-    static ReturnActorCreatedEventRef create( const ActorWeakRef &actor );
+    static ReturnActorCreatedEventRef create( const SceneId &scene_id, const ActorWeakRef &actor );
     
     ~ReturnActorCreatedEvent(){}
     EventDataRef copy(){ return ReturnActorCreatedEventRef(); }
@@ -80,10 +80,12 @@ public:
     void deSerialize( const ci::Buffer &streamIn ){}
     
     inline ActorWeakRef getActorWeakRef(){ return mWeakActor; }
+    inline SceneId getSceneId() { return mSceneId; }
     
 private:
-    ReturnActorCreatedEvent( const ActorWeakRef &actor );
+    ReturnActorCreatedEvent( const SceneId &scene_id, const ActorWeakRef &actor );
     ActorWeakRef mWeakActor;
+    SceneId mSceneId;
 };
 
     

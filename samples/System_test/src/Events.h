@@ -9,6 +9,7 @@
 #pragma once
 
 #include "BaseEventData.h"
+#include "AppCommon.h"
 
 using TestEventRef = std::shared_ptr<class TestEvent>;
     
@@ -29,5 +30,6 @@ class TestEvent : public ec::EventData {
     
     private:
         TestEvent();
-    };
+};
     
+

@@ -16,8 +16,25 @@ namespace ec {
 	
 ComponentType TransformComponent::TYPE = 0x001;
     
+TransformComponentRef TransformComponent::create(ec::Actor *context)
+{
+    return TransformComponentRef( new TransformComponent(context) );
+}
+
+const ec::ComponentNameType TransformComponent::getName() const
+{
+    return "transform_component";
+}
+const ec::ComponentUId TransformComponent::getId() const
+{
+    return mId;
+}
+const ec::ComponentType TransformComponent::getType() const
+{
+    return TYPE;
+}
     
-TransformComponent::TransformComponent(): mComponents( new Transformables )
+TransformComponent::TransformComponent( Actor* context ): ComponentBase(context),  mComponents( new Transformables ), mId( getHash(context->getName()+"_transform_component") )
 {
     
 }

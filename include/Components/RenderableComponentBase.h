@@ -15,7 +15,7 @@
 
 namespace ec {
     
-    class RenderableComponentBase : public UpdatableComponentBase, public CullableComponentBase, public TransformComponent {
+    class RenderableComponentBase : public UpdatableComponentBase {
         
     public:
         
