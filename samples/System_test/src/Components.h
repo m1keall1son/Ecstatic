@@ -24,27 +24,3 @@ public:
     ec::ComponentBaseRef createComponent( ec::Actor* context, const ci::JsonTree& init )override;
 };
 
-class GeomTeapot : public ec::RenderableComponentBase {
-    
-public:
-    
-    static ec::ComponentType TYPE;
-    
-    static GeomTeapotRef create( ec::Actor* context );
-    
-    bool                          initialize( const ci::JsonTree &tree )override{ return true; }
-    ci::JsonTree                  serialize()override{ return ci::JsonTree(); }
-    const ec::ComponentNameType   getName() const override;
-    const ec::ComponentUId        getId() const override;
-    const ec::ComponentType       getType() const override;
-
-    void draw() override;
-    void update( ec::TimeStepType delta ) override;
-
-private:
-
-    GeomTeapot( ec::Actor* context );
-    ci::gl::BatchRef mTeapot;
-    ec::ComponentUId mId;
-
-};

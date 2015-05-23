@@ -10,7 +10,6 @@
 #include "Cinder/Log.h"
 #include "ConfigManager.h"
 #include "Scene.h"
-#include "Renderer.h"
 #include "SystemEvents.h"
 #include "SceneFactory.h"
 #include "ActorManager.h"
@@ -37,7 +36,7 @@ namespace ec {
         return sController;
     }
     
-    Controller::Controller( const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory ) : mSceneIndex(0), mCurrentScene(nullptr), mConfigManager(nullptr), mSceneFactory(scene_factory), mComponentFactory(component_factory)
+    Controller::Controller( const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory ) : mSceneIndex(0), mCurrentScene(nullptr), mConfigManager(nullptr), mSceneFactory(scene_factory), mComponentFactory(component_factory), mDebug(false)
     {
         CI_LOG_V("controller constructing...");
         mEventManager = EventManager::create("global event manager");

@@ -32,6 +32,10 @@ public:
     ActorTypeQualifier  getTypeQualifier() const;
     void            destroy();
     
+    void            postInit();
+    
+    ci::JsonTree    serialize();
+    
     inline void activate( bool active ){ mActive = active; }
     inline bool isActive(){ return mActive; }
     

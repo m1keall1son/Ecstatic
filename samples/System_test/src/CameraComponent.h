@@ -23,6 +23,7 @@ public:
     static CameraComponentRef create( ec::Actor * context );
     
     bool                          initialize( const ci::JsonTree &tree )override;
+    bool                          postInit()override{}
     ci::JsonTree                  serialize()override;
     const ec::ComponentNameType   getName() const override;
     const ec::ComponentUId        getId() const override;

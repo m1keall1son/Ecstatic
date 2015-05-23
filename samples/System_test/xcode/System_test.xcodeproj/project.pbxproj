@@ -21,13 +21,15 @@
 		4F85E2F21B0BD946005BDFD7 /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2ED1B0BD946005BDFD7 /* Events.cpp */; };
 		4F85E2F31B0BD946005BDFD7 /* Scenes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2EF1B0BD946005BDFD7 /* Scenes.cpp */; };
 		4F85E2F51B0BD94C005BDFD7 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F85E2F41B0BD94C005BDFD7 /* config.json */; };
+		4FC430CA1B0FCAFA00CB65ED /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430C81B0FCAFA00CB65ED /* Light.cpp */; };
+		4FC430CD1B10D94300CB65ED /* DebugComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */; };
+		4FC430D01B10E57F00CB65ED /* ShadowMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430CE1B10E57F00CB65ED /* ShadowMap.cpp */; };
+		4FC430D31B10F83A00CB65ED /* RoomComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430D11B10F83A00CB65ED /* RoomComponent.cpp */; };
+		4FC430D61B10FB6500CB65ED /* GeomTeapotComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430D41B10FB6500CB65ED /* GeomTeapotComponent.cpp */; };
 		4FCBB0AD1B0E7A3F00BCE8C0 /* LightManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */; };
 		4FCBB0B11B0E7C0600BCE8C0 /* CameraManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0AF1B0E7C0600BCE8C0 /* CameraManager.cpp */; };
 		4FCBB0B41B0E7E0200BCE8C0 /* CameraComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0B21B0E7E0200BCE8C0 /* CameraComponent.cpp */; };
-		4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */; };
-		4FCBB0C01B0E9C6500BCE8C0 /* DynamicLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */; };
-		4FCBB0C31B0E9C8A00BCE8C0 /* StaticLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */; };
-		4FCBB0C61B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */; };
+		4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponent.cpp */; };
 		4FCBB0CC1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */; };
 		4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
@@ -80,6 +82,16 @@
 		4F85E2F01B0BD946005BDFD7 /* Scenes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenes.h; path = ../src/Scenes.h; sourceTree = "<group>"; };
 		4F85E2F41B0BD94C005BDFD7 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../assets/config.json; sourceTree = "<group>"; };
 		4F85E2F61B0BD9BD005BDFD7 /* Manager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Manager.hpp; path = ../../../include/System/Manager.hpp; sourceTree = "<group>"; };
+		4FC430C81B0FCAFA00CB65ED /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../src/Light.cpp; sourceTree = "<group>"; };
+		4FC430C91B0FCAFA00CB65ED /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../src/Light.h; sourceTree = "<group>"; };
+		4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DebugComponent.cpp; path = ../src/DebugComponent.cpp; sourceTree = "<group>"; };
+		4FC430CC1B10D94300CB65ED /* DebugComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugComponent.h; path = ../src/DebugComponent.h; sourceTree = "<group>"; };
+		4FC430CE1B10E57F00CB65ED /* ShadowMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShadowMap.cpp; path = ../src/ShadowMap.cpp; sourceTree = "<group>"; };
+		4FC430CF1B10E57F00CB65ED /* ShadowMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowMap.h; path = ../src/ShadowMap.h; sourceTree = "<group>"; };
+		4FC430D11B10F83A00CB65ED /* RoomComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RoomComponent.cpp; path = ../src/RoomComponent.cpp; sourceTree = "<group>"; };
+		4FC430D21B10F83A00CB65ED /* RoomComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoomComponent.h; path = ../src/RoomComponent.h; sourceTree = "<group>"; };
+		4FC430D41B10FB6500CB65ED /* GeomTeapotComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GeomTeapotComponent.cpp; path = ../src/GeomTeapotComponent.cpp; sourceTree = "<group>"; };
+		4FC430D51B10FB6500CB65ED /* GeomTeapotComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GeomTeapotComponent.h; path = ../src/GeomTeapotComponent.h; sourceTree = "<group>"; };
 		4FCBB0AB1B0E7A1300BCE8C0 /* LightManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LightManager.h; path = ../src/LightManager.h; sourceTree = "<group>"; };
 		4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightManager.cpp; path = ../src/LightManager.cpp; sourceTree = "<group>"; };
 		4FCBB0AE1B0E7A7B00BCE8C0 /* AppCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppCommon.h; path = ../src/AppCommon.h; sourceTree = "<group>"; };
@@ -87,14 +99,8 @@
 		4FCBB0B01B0E7C0600BCE8C0 /* CameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraManager.h; path = ../src/CameraManager.h; sourceTree = "<group>"; };
 		4FCBB0B21B0E7E0200BCE8C0 /* CameraComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraComponent.cpp; path = ../src/CameraComponent.cpp; sourceTree = "<group>"; };
 		4FCBB0B31B0E7E0200BCE8C0 /* CameraComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CameraComponent.h; path = ../src/CameraComponent.h; sourceTree = "<group>"; };
-		4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightComponentBase.cpp; path = ../src/LightComponentBase.cpp; sourceTree = "<group>"; };
-		4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponentBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightComponentBase.h; path = ../src/LightComponentBase.h; sourceTree = "<group>"; };
-		4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DynamicLightComponent.cpp; path = ../src/DynamicLightComponent.cpp; sourceTree = "<group>"; };
-		4FCBB0BF1B0E9C6500BCE8C0 /* DynamicLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLightComponent.h; path = ../src/DynamicLightComponent.h; sourceTree = "<group>"; };
-		4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StaticLightComponent.cpp; path = ../src/StaticLightComponent.cpp; sourceTree = "<group>"; };
-		4FCBB0C21B0E9C8A00BCE8C0 /* StaticLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticLightComponent.h; path = ../src/StaticLightComponent.h; sourceTree = "<group>"; };
-		4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShadowLightComponent.cpp; path = ../src/ShadowLightComponent.cpp; sourceTree = "<group>"; };
-		4FCBB0C51B0E9C9D00BCE8C0 /* ShadowLightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShadowLightComponent.h; path = ../src/ShadowLightComponent.h; sourceTree = "<group>"; };
+		4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LightComponent.cpp; path = ../src/LightComponent.cpp; sourceTree = "<group>"; };
+		4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LightComponent.h; path = ../src/LightComponent.h; sourceTree = "<group>"; };
 		4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrustumCullComponent.cpp; path = ../src/FrustumCullComponent.cpp; sourceTree = "<group>"; };
 		4FCBB0CB1B0F6AC200BCE8C0 /* FrustumCullComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrustumCullComponent.h; path = ../src/FrustumCullComponent.h; sourceTree = "<group>"; };
 		4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppSceneBase.cpp; path = ../src/AppSceneBase.cpp; sourceTree = "<group>"; };
@@ -303,16 +309,14 @@
 		4FCBB0B51B0E8B1600BCE8C0 /* Lights */ = {
 			isa = PBXGroup;
 			children = (
+				4FC430C81B0FCAFA00CB65ED /* Light.cpp */,
+				4FC430C91B0FCAFA00CB65ED /* Light.h */,
 				4FCBB0AB1B0E7A1300BCE8C0 /* LightManager.h */,
 				4FCBB0AC1B0E7A3F00BCE8C0 /* LightManager.cpp */,
-				4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponentBase.cpp */,
-				4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponentBase.h */,
-				4FCBB0BE1B0E9C6500BCE8C0 /* DynamicLightComponent.cpp */,
-				4FCBB0BF1B0E9C6500BCE8C0 /* DynamicLightComponent.h */,
-				4FCBB0C11B0E9C8A00BCE8C0 /* StaticLightComponent.cpp */,
-				4FCBB0C21B0E9C8A00BCE8C0 /* StaticLightComponent.h */,
-				4FCBB0C41B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp */,
-				4FCBB0C51B0E9C9D00BCE8C0 /* ShadowLightComponent.h */,
+				4FCBB0BB1B0E9BFE00BCE8C0 /* LightComponent.cpp */,
+				4FCBB0BC1B0E9BFE00BCE8C0 /* LightComponent.h */,
+				4FC430CE1B10E57F00CB65ED /* ShadowMap.cpp */,
+				4FC430CF1B10E57F00CB65ED /* ShadowMap.h */,
 			);
 			name = Lights;
 			sourceTree = "<group>";
@@ -344,6 +348,12 @@
 				4FCBB0CA1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp */,
 				4F85E2EB1B0BD946005BDFD7 /* Components.cpp */,
 				4F85E2EC1B0BD946005BDFD7 /* Components.h */,
+				4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */,
+				4FC430CC1B10D94300CB65ED /* DebugComponent.h */,
+				4FC430D11B10F83A00CB65ED /* RoomComponent.cpp */,
+				4FC430D21B10F83A00CB65ED /* RoomComponent.h */,
+				4FC430D41B10FB6500CB65ED /* GeomTeapotComponent.cpp */,
+				4FC430D51B10FB6500CB65ED /* GeomTeapotComponent.h */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -522,33 +532,35 @@
 			files = (
 				B00953FF67BA483D893A8330 /* System_testApp.cpp in Sources */,
 				A272C6A0F29A438680E8A935 /* EventManager.cpp in Sources */,
-				4FCBB0C61B0E9C9D00BCE8C0 /* ShadowLightComponent.cpp in Sources */,
 				4FCBB0AD1B0E7A3F00BCE8C0 /* LightManager.cpp in Sources */,
 				DBAF221422B740319FA38CC8 /* EventManagerBase.cpp in Sources */,
-				4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponentBase.cpp in Sources */,
+				4FCBB0BD1B0E9BFE00BCE8C0 /* LightComponent.cpp in Sources */,
 				C1A7F68B158043E1B4712EA5 /* SystemEvents.cpp in Sources */,
 				5625F89DA6854AF2827AA41D /* Actor.cpp in Sources */,
 				4FCBB0B41B0E7E0200BCE8C0 /* CameraComponent.cpp in Sources */,
+				4FC430CA1B0FCAFA00CB65ED /* Light.cpp in Sources */,
 				4E453BDCC17B4D7B823E8E3F /* ActorFactory.cpp in Sources */,
 				4F85E2F31B0BD946005BDFD7 /* Scenes.cpp in Sources */,
 				32073B408D194BA4827CDA1A /* ActorManager.cpp in Sources */,
 				5D2F2DB5AB14493397985D0E /* FactoryBase.cpp in Sources */,
 				BADCA38BC2AB4F26A539D85D /* ComponentBase.cpp in Sources */,
 				4F85E2F21B0BD946005BDFD7 /* Events.cpp in Sources */,
+				4FC430D31B10F83A00CB65ED /* RoomComponent.cpp in Sources */,
+				4FC430D61B10FB6500CB65ED /* GeomTeapotComponent.cpp in Sources */,
 				4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */,
+				4FC430D01B10E57F00CB65ED /* ShadowMap.cpp in Sources */,
 				D3A8C817515843A891ABA004 /* ComponentFactory.cpp in Sources */,
 				B4D30174693E431790181465 /* RenderableComponentBase.cpp in Sources */,
 				4D50689423F947BCA1E2DB4C /* TransformComponent.cpp in Sources */,
 				53CB2E4C02864F439668F7A2 /* UpdatableComponentBase.cpp in Sources */,
 				4FCBB0CC1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp in Sources */,
 				4F85E2F11B0BD946005BDFD7 /* Components.cpp in Sources */,
-				4FCBB0C31B0E9C8A00BCE8C0 /* StaticLightComponent.cpp in Sources */,
+				4FC430CD1B10D94300CB65ED /* DebugComponent.cpp in Sources */,
 				82CCC0781273462DBBAE9EBA /* VisibleComponentBase.cpp in Sources */,
 				FB9EADD0E784483D92D2975D /* Scene.cpp in Sources */,
 				CFEEA9982FBF4AA8B1416019 /* Common.cpp in Sources */,
 				AC880E7770E04F1199B4B589 /* ConfigManager.cpp in Sources */,
 				4FCBB0B11B0E7C0600BCE8C0 /* CameraManager.cpp in Sources */,
-				4FCBB0C01B0E9C6500BCE8C0 /* DynamicLightComponent.cpp in Sources */,
 				5709DC3FAD5F4141B11A8822 /* Controller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

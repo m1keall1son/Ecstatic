@@ -11,12 +11,16 @@
 #include "LightManager.h"
 #include "CameraManager.h"
 
+///Common application layer scene class
+
 class AppSceneBase : public ec::Scene {
     
 public:
     
     inline LightManagerRef lights(){ return mLights; }
     inline CameraManagerRef cameras(){ return mCameras; }
+    
+    virtual void initialize( const ci::JsonTree& init )override;
     
     virtual void update()override;
     virtual void preDraw() = 0;

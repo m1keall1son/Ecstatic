@@ -10,12 +10,17 @@
 #include "ComponentBase.h"
 #include "TransformComponent.h"
 #include "CameraComponent.h"
-#include "DynamicLightComponent.h"
-#include "StaticLightComponent.h"
-#include "ShadowLightComponent.h"
+#include "LightComponent.h"
 #include "FrustumCullComponent.h"
+#include "GeomTeapotComponent.h"
+#include "RoomComponent.h"
 #include "cinder/Log.h"
 #include "Actor.h"
+#include "AppSceneBase.h"
+#include "Scene.h"
+#include "Controller.h"
+#include "LightManager.h"
+#include "ShadowMap.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -45,20 +50,28 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
         return transform;
         
     }
-    else if (type == "dynamic_light_component")
+    else if (type == "light_component")
     {
         CI_LOG_V("parsed dynamic_light component");
-        auto c = DynamicLightComponent::create(context);
+        auto c = LightComponent::create(context);
         c->initialize(init);
         return c;
         
     }
-    else if (type == "geom_teapot")
+    else if (type == "geom_teapot_component")
     {
         CI_LOG_V("parsed geom_teapot component");
-        auto teapot = GeomTeapot::create(context);
+        auto teapot = GeomTeapotComponent::create(context);
         teapot->initialize(init);
         return teapot;
+        
+    }
+    else if (type == "room_component")
+    {
+        CI_LOG_V("parsed room_component component");
+        auto room = RoomComponent::create(context);
+        room->initialize(init);
+        return room;
         
     }
     else if (type == "camera_component")
@@ -75,54 +88,4 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
     }
     
 }
-
-GeomTeapotRef GeomTeapot::create( ec::Actor* context )
-{
-    return GeomTeapotRef( new GeomTeapot(context) );
-}
-
-bool GeomTeapot::cull()
-{
-    CI_LOG_V("geom_teapot cull");
-    return true;
-}
-
-void GeomTeapot::update(ec::TimeStepType delta)
-{
-    setRotation( glm::toQuat( ci::rotate( (float)getElapsedSeconds(), vec3(1.) ) ) );
-}
-
-void GeomTeapot::draw()
-{
-    CI_LOG_V("geom_teapot draw");
-    gl::ScopedModelMatrix model;
-    gl::multModelMatrix( getModelMatrix() );
-    mTeapot->draw();
-}
-
-ec::ComponentType GeomTeapot::TYPE = ec::RenderableComponentBase::TYPE | 0x011;
-
-GeomTeapot::GeomTeapot( ec::Actor* context ):ec::ComponentBase( context ), mId( ec::getHash( context->getName() + "geom_teapot" ) )
-{
-    CI_LOG_V("geom_teapot constructed");
-    //TODO this should be in initilialize with ryan's code
-    mTeapot = ci::gl::Batch::create( ci::geom::Teapot(), ci::gl::getStockShader(ci::gl::ShaderDef().color() ) );
-}
-
-const ec::ComponentNameType GeomTeapot::getName() const
-{
-    return "geom_teapot";
-}
-
-const ec::ComponentUId GeomTeapot::getId() const
-{
-    return mId;
-}
-
-const ec::ComponentType GeomTeapot::getType() const
-{
-    return TYPE;
-}
-
-
 

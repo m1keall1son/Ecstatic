@@ -17,6 +17,7 @@ using IntroSceneRef = std::shared_ptr<class IntroScene>;
 
 using ComponentFactoryRef = std::shared_ptr<class ComponentFactory>;
 using FrustumCullComponentRef = std::shared_ptr< class FrustumCullComponent >;
+using DebugComponentRef = std::shared_ptr< class DebugComponent >;
 
 ///CAMERAS
 using CameraManagerRef = std::shared_ptr< class CameraManager >;
@@ -25,15 +26,16 @@ using CameraComponentRef = std::shared_ptr< class CameraComponent >;
 ///LIGHTS
 
 using LightManagerRef = std::shared_ptr< class LightManager >;
-using LightComponentBaseRef = std::shared_ptr< class LightComponentBase >;
-using DynamicLightComponentRef = std::shared_ptr< class DynamicLightComponent >;
-using StaticLightComponentRef = std::shared_ptr< class StaticLightComponent >;
-using ShadowLightComponentRef = std::shared_ptr< class ShadowLightComponent >;
+using LightComponentRef = std::shared_ptr< class LightComponent >;
+using ShadowMapRef = std::shared_ptr<class ShadowMap>;
+
 
 ///RENDERABLE
 
-using GeomTeapotRef = std::shared_ptr< class GeomTeapot >;
+using GeomTeapotComponentRef = std::shared_ptr< class GeomTeapotComponent >;
+using RoomComponentRef = std::shared_ptr< class RoomComponent >;
 
 ///App EVENTS
 
-using RegisterCameraEventRef = std::shared_ptr<class RegisterCameraEvent>;
+using DrawDebugEventRef = std::shared_ptr<class DrawDebugEvent>;
+using DrawShadowEventRef = std::shared_ptr<class DrawShadowEvent>;

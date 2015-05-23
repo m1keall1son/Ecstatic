@@ -9,6 +9,7 @@
 #pragma once
 #include "Common.h"
 #include "EventManager.h"
+#include "cinder/Json.h"
 
 namespace ec {
     
@@ -34,7 +35,8 @@ protected:
     virtual std::vector<ActorUId>   shutdown();
     
 
-    
+    virtual void                    initialize( const ci::JsonTree &init ) = 0;
+
     virtual void                    update(); //has to update the event manager
     virtual void                    preDraw() = 0;
     virtual void                    draw() = 0;

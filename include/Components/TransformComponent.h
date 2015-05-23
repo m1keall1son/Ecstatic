@@ -95,6 +95,8 @@ public:
     virtual const ec::ComponentUId        getId() const override;
     virtual const ec::ComponentType       getType() const override;
     
+    virtual bool postInit()override{}
+    
 	inline const ci::mat4& getModelMatrix() const { return mComponents->getModelMatrix(); }
 	
 	//! Sets the Translation of the write component
@@ -118,6 +120,8 @@ public:
 	inline const ci::vec3& getTranslation() const { return mComponents->getTranslation(); }
 	inline const ci::vec3& getScale() const { return mComponents->getScale(); }
 	inline const ci::quat& getRotation() const { return mComponents->getRotation(); }
+    
+    bool hasChanged();
 	
 protected:
     

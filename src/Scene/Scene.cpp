@@ -47,6 +47,10 @@ namespace ec {
         }
         
         auto init = ConfigManager::get()->retreiveActorsForScene( mName );
+        
+        ///call to inherited initialize for sub classes to pulll custom shit out of the config
+        initialize( init );
+        
         try {
             
             //TODO: the problem with persistent actors is how to manage state across scenes, how to identify actors of the same type across scenes that are persistent, one solution is destroy all and reload referencing a serialized state file that is written out and read back in or something
@@ -72,6 +76,15 @@ namespace ec {
         } catch (const ci::JsonTree::ExcChildNotFound &e) {
             CI_LOG_E("actors not found in init");
         }
+        
+        ///POST INITIALIZE ALL ACTORS
+        
+        for( auto & actor : mActors )
+        {
+            auto a = actor.second.lock();
+            a->postInit();
+        }
+        
     }
     
     std::vector<ActorUId> Scene::shutdown()
@@ -99,10 +112,9 @@ namespace ec {
         auto e = std::dynamic_pointer_cast<ReturnActorCreatedEvent>(event);
         CI_LOG_V("receieved actor create info");
         auto actorWeak = e->getActorWeakRef();
-        if ( auto actorStrong = actorWeak.lock() ) { // Has to be copied into a shared_ptr before usage
+        if ( auto actorStrong = actorWeak.lock() ) {
             mActors.insert( std::make_pair(actorStrong->getUId(), actorWeak) );
         }
-        logActorType(e);
     }
     
     //TODO: figure out thie control logic for the main loop
@@ -111,16 +123,12 @@ namespace ec {
     {
         update();
         auto e = std::dynamic_pointer_cast<SceneUpdateEvent>(event);
-        CI_LOG_V("update components event triggered");
-        mSceneManager->triggerEvent(UpdateComponentsEvent::create(e->getTimeStep()));
     }
     
     void Scene::handleSceneDraw(EventDataRef event)
     {
         auto e = std::dynamic_pointer_cast<SceneDrawEvent>(event);
         draw();
-        CI_LOG_V("draw visible event triggered");
-        mSceneManager->triggerEvent(DrawVisibleComponentsEvent::create(e->getTimeStep()));
         postDraw();
     }
     
@@ -128,8 +136,6 @@ namespace ec {
     {
         auto e = std::dynamic_pointer_cast<ScenePreDrawEvent>(event);
         preDraw();
-        CI_LOG_V("cull visible event triggered");
-        mSceneManager->triggerEvent(CullVisibleComponentsEvent::create(e->getTimeStep()));
     }
     
     void Scene::update()

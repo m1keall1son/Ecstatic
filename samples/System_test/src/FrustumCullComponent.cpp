@@ -12,6 +12,7 @@
 #include "AppSceneBase.h"
 #include "Controller.h"
 #include "TransformComponent.h"
+#include "DebugComponent.h"
 
 ec::ComponentType FrustumCullComponent::TYPE = ec::CullableComponentBase::TYPE | 0x013;
 
@@ -40,7 +41,8 @@ bool FrustumCullComponent::cull()
             ci::Frustumf visibleWorld( scene->cameras()->getCamera(CameraManager::CameraType::MAIN_CAMERA) );
             ci::AxisAlignedBox3f worldBoundingBox;
             auto transform = mContext->getComponent<ec::TransformComponent>().lock();
-            worldBoundingBox = worldBoundingBox.transformed( transform->getModelMatrix() );
+            auto boundingbox = mContext->getComponent<DebugComponent>().lock()->getAxisAlignedBoundingBox();
+            worldBoundingBox = boundingbox.transformed( transform->getModelMatrix() );
             mIsVisible = !visibleWorld.intersects( worldBoundingBox );
         }
         else
@@ -55,7 +57,7 @@ ci::JsonTree FrustumCullComponent::serialize()
     auto save = ci::JsonTree();
     save.addChild( ci::JsonTree( "name", getName() ) );
     save.addChild( ci::JsonTree( "id", getId() ) );
-    save.addChild( ci::JsonTree( "type", getType() ) );
+    save.addChild( ci::JsonTree( "type", "frustum_cull_component" ) );
     save.addChild( ci::JsonTree( "current_visibility", mIsVisible ) );
     return save;
 }

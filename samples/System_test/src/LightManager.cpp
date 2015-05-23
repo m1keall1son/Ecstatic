@@ -14,15 +14,32 @@
 #include "SystemEvents.h"
 #include "EventManager.h"
 #include "FrustumCullComponent.h"
-#include "LightComponentBase.h"
+#include "LightComponent.h"
+#include "Scene.h"
+#include "CameraManager.h"
+#include "AppSceneBase.h"
 
-LightType LightManager::parseLightType( const ec::ActorTypeQualifier &qualifier )
+using namespace ci;
+using namespace ci::app;
+
+ci::Light::Type LightManager::parseLightType( const std::string &type )
 {
-    if( qualifier == "directional" )return LightType::DIRECTIONAL;
-    else if( qualifier == "point" )return LightType::POINT;
-    else if( qualifier == "spot" )return LightType::SPOT;
-    else if( qualifier == "area" )return LightType::AREA;
-    else return LightType::DIRECTIONAL;
+    if( type == "directional" )return ci::Light::Type::Directional;
+    else if( type == "point" )return ci::Light::Type::Point;
+    else if( type == "spot" )return ci::Light::Type::Spot;
+    else if( type == "wedge" )return ci::Light::Type::Wedge;
+    else if( type == "capsule" )return ci::Light::Type::Capsule;
+    else return ci::Light::Type::Directional;
+}
+
+std::string LightManager::parseLightTypeToString( const ci::Light::Type &type )
+{
+    if( type == ci::Light::Type::Directional )return "directional";
+    else if( type == ci::Light::Type::Point )return "point";
+    else if( type == ci::Light::Type::Spot )return "spot";
+    else if( type == ci::Light::Type::Wedge )return "wedge";
+    else if( type == ci::Light::Type::Capsule )return "capsule";
+    else return "directional";
 }
 
 LightManager::LightManager()
@@ -32,16 +49,30 @@ LightManager::LightManager()
     
     ec::Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &LightManager::handleLightRegistration), ec::ReturnActorCreatedEvent::TYPE);
     
-    BufferableLights lights;
+    Lights lights;
     lights.numLights = 0;
+    lights.upDirection = vec4(0,1,0,0);
     
-    mLightUbo = ci::gl::Ubo::create( sizeof(lights), &lights , GL_DYNAMIC_DRAW);
+    mLightUbo = ci::gl::Ubo::create( sizeof(lights), nullptr , GL_DYNAMIC_DRAW);
     mLightUbo->bindBufferBase(mLightUboLocation);
 }
 
 LightManager::~LightManager()
 {
     ec::Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate( this, &LightManager::handleLightRegistration), ec::ReturnActorCreatedEvent::TYPE);
+}
+
+void LightManager::initShadowMap(const ci::JsonTree &init)
+{
+    try {
+        
+        auto size = init["size"].getValue<int>();
+        mShadowMap = ShadowMap::create(size);
+        
+    } catch (const ci::JsonTree::ExcChildNotFound &e) {
+        CI_LOG_W("shadow map size not found, creating default size 1024");
+        mShadowMap = ShadowMap::create(1024);
+    }
 }
 
 void LightManager::handleLightRegistration( ec::EventDataRef event )
@@ -61,19 +92,17 @@ void LightManager::update() {
     bool updateAll = false;
     ///TODO: could do an event registration here instead of running through all scene lights every frame
     
-    std::vector< LightComponentBaseRef > activeLights;
+    std::vector< ci::LightRef > activeLights;
     
     for( auto & light : mLights ){
         
         auto light_strong = ec::ActorManager::get()->retreiveUnique(light).lock();
         if(light_strong){
-            auto light_component = light_strong->getComponent<LightComponentBase>().lock();
-            
+            auto light_component = light_strong->getComponent<LightComponent>().lock();
             if(light_component){
-                
-                if( light_strong->isActive() ){
+                if( light_strong->isActive() && light_component->getLight()->isVisible() ){
                     if(activeLights.size() < 24)
-                        activeLights.push_back(light_component);
+                        activeLights.push_back(light_component->getLight() );
                     if( light_component->needsUpdate() ){
                         updateAll = true;
                     }
@@ -84,25 +113,18 @@ void LightManager::update() {
     
     if( updateAll ){
         
-        BufferableLights lights;
+        auto viewMat = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() )->cameras()->getCamera( CameraManager::MAIN_CAMERA ).getViewMatrix();
         
-        int i = 0;
-        for( auto & l : activeLights ){
-         
-            BufferableLightData data;
-            data.ambientColor  = l->getAmbientColor();
-            data.diffuseColor  = l->getDiffuseColor();
-            data.specularColor = l->getSpecularColor();
-            data.specularPower = l->getSpecularPower();
-            data.type          = l->getLightType();
-            
-            lights.lights[i] = data;
-            
-            i++;
-        }
+        Lights lights;
         lights.numLights = activeLights.size();
-     
-        mLightUbo->bufferSubData(0, sizeof(lights), &lights);
+        lights.upDirection = viewMat * vec4( 0, 1, 0, 0 );
+        
+        for( size_t i = 0; i < activeLights.size(); ++i ) {
+            Light::Data light = activeLights[i]->getData( getElapsedSeconds(), viewMat );
+            lights.data[i] = light;
+        }
+        
+        mLightUbo->bufferSubData( 0, sizeof( lights ), &lights );
         
     }
     

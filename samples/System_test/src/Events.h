@@ -10,17 +10,15 @@
 
 #include "BaseEventData.h"
 #include "AppCommon.h"
-
-using TestEventRef = std::shared_ptr<class TestEvent>;
     
-class TestEvent : public ec::EventData {
+class DrawDebugEvent : public ec::EventData {
     public:
     
     static ec::EventType TYPE;
     
-    static TestEventRef create();
+    static DrawDebugEventRef create();
     
-    ~TestEvent(){}
+    ~DrawDebugEvent(){}
     ec::EventDataRef copy(){ return ec::EventDataRef(); }
     const char* getName() const;
     ec::EventType getEventType() const;
@@ -29,7 +27,26 @@ class TestEvent : public ec::EventData {
     void deSerialize( const ci::Buffer &streamIn ){}
     
     private:
-        TestEvent();
+        DrawDebugEvent();
 };
+
+
+class DrawShadowEvent : public ec::EventData {
+public:
     
+    static ec::EventType TYPE;
+    
+    static DrawShadowEventRef create();
+    
+    ~DrawShadowEvent(){}
+    ec::EventDataRef copy(){ return ec::EventDataRef(); }
+    const char* getName() const;
+    ec::EventType getEventType() const;
+    
+    void serialize( ci::Buffer &streamOut ){}
+    void deSerialize( const ci::Buffer &streamIn ){}
+    
+private:
+    DrawShadowEvent();
+};
 

@@ -51,7 +51,7 @@ bool TransformComponent::initialize( const JsonTree &tree )
 		}
 		setTranslation( translation );
 	} catch ( JsonTree::ExcChildNotFound ex	) {
-		
+        CI_LOG_W("no translation found, use default");
 	}
 	
 	try {
@@ -64,6 +64,7 @@ bool TransformComponent::initialize( const JsonTree &tree )
 		}
 		setRotation( rotation );
 	} catch ( JsonTree::ExcChildNotFound ex	) {
+        CI_LOG_W("no rotation found, use default");
 	}
 	
 	try {
@@ -76,7 +77,7 @@ bool TransformComponent::initialize( const JsonTree &tree )
 		}
 		setScale( scale );
 	} catch ( JsonTree::ExcChildNotFound ex	) {
-		setScale( vec3( 1.0f ) );
+        CI_LOG_W("no scale found, use default vec3(1.)");
 	}
 	
 	return true;
@@ -89,7 +90,7 @@ ci::JsonTree TransformComponent::serialize()
     auto save = ci::JsonTree();
     save.addChild( ci::JsonTree( "name", getName() ) );
     save.addChild( ci::JsonTree( "id", getId() ) );
-    save.addChild( ci::JsonTree( "type", getType() ) );
+    save.addChild( ci::JsonTree( "type", "transform_component" ) );
     
     auto scale = ci::JsonTree::makeArray( "scale" );
     for( int i = 0; i<3; i++ ){
@@ -114,5 +115,9 @@ ci::JsonTree TransformComponent::serialize()
     return save;
 }
 
+bool TransformComponent::hasChanged()
+{
+    return mComponents->mUpdated;
+}
 	
 }

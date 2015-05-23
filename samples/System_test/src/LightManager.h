@@ -11,17 +11,23 @@
 #include "AppCommon.h"
 #include "Common.h"
 #include "cinder/gl/Ubo.h"
-#include "LightComponentBase.h"
+#include "Light.h"
+#include "ShadowMap.h"
+#include "cinder/Json.h"
 
 class LightManager {
     
 public:
-    
-    static LightType parseLightType( const ec::ActorTypeQualifier &qualifier );
+
+    static ci::Light::Type parseLightType( const std::string &type );
+    static std::string parseLightTypeToString( const ci::Light::Type &type );
     
     inline std::vector< ec::ActorUId >& getLights(){ return mLights; }
-    
     inline int getLightUboLocation(){ return mLightUboLocation; }
+    
+    void initShadowMap( const ci::JsonTree& init );
+    
+    inline ShadowMapRef getShadowMap(){ return mShadowMap; }
     
     void update();
     
@@ -29,31 +35,20 @@ public:
     
 private:
     
-    struct BufferableLightData{
-        
-        ci::vec3 ambientColor;
-        ci::vec3 diffuseColor;
-        ci::vec3 specularColor;
-        float    specularPower;
-        int      type;
-        ci::vec2 pad;
-        
-    };
-    
-    struct BufferableLights {
-        
-        BufferableLightData lights[24];
+    struct Lights {
+        ci::Light::Data     data[24];
         int                 numLights;
+        ci::vec4            upDirection;
     };
-    
     
     LightManager();
     
     void handleLightRegistration( ec::EventDataRef );
     
     std::vector< ec::ActorUId > mLights;
-    ci::gl::UboRef  mLightUbo;
-    int             mLightUboLocation;
+    ci::gl::UboRef              mLightUbo;
+    int                         mLightUboLocation;
+    ShadowMapRef                mShadowMap;
     
     friend class AppSceneBase;
     

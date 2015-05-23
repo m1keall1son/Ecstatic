@@ -14,7 +14,7 @@
 using namespace ci;
 using namespace ci::app;
 
-ec::ComponentType CameraComponent::TYPE = ec::UpdatableComponentBase::TYPE | TransformComponent::TYPE | 0x012;
+ec::ComponentType CameraComponent::TYPE = ec::UpdatableComponentBase::TYPE | 0x012;
 
 CameraComponentRef CameraComponent::create( ec::Actor * context )
 {
@@ -29,10 +29,9 @@ CameraComponent::CameraComponent( ec::Actor* context ) : ec::ComponentBase( cont
 bool CameraComponent::initialize( const ci::JsonTree &tree )
 {
     //init base class
-    TransformComponent::initialize(tree);
-    
     
     try {
+        
         auto fov = tree["fov"].getValue<float>();
         auto near = tree["near"].getValue<float>();
         auto far = tree["far"].getValue<float>();
@@ -44,7 +43,7 @@ bool CameraComponent::initialize( const ci::JsonTree &tree )
             mCamera.setPerspective(fov, std::stof(aspect), near, far);
         
     } catch ( JsonTree::ExcChildNotFound ex	) {
-        CI_LOG_E(std::string(ex.what())+" setting default camera");
+        CI_LOG_W(std::string(ex.what())+" setting default camera");
         mCamera.setPerspective(60, getWindowAspectRatio(), .1, 1000);
     }
     
@@ -55,7 +54,18 @@ bool CameraComponent::initialize( const ci::JsonTree &tree )
 
 ci::JsonTree CameraComponent::serialize()
 {
-    return ci::JsonTree();
+    auto save = ci::JsonTree();
+    
+    save.addChild( ci::JsonTree( "name", getName() ) );
+    save.addChild( ci::JsonTree( "id", getId() ) );
+    save.addChild( ci::JsonTree( "type", "camera_component" ) );
+    save.addChild( ci::JsonTree( "fov", mCamera.getFov() ) );
+    save.addChild( ci::JsonTree( "near", mCamera.getNearClip() ) );
+    save.addChild( ci::JsonTree( "far", mCamera.getFarClip() ) );
+    save.addChild( ci::JsonTree( "aspect", mCamera.getAspectRatio() ) );
+    
+    return save;
+    
 }
 
 const ec::ComponentNameType CameraComponent::getName() const
@@ -77,8 +87,8 @@ void CameraComponent::update(ec::TimeStepType step)
 {
     CI_LOG_V("camera_component update");
     //TODO: transform must have target (pointer to another actor location), lookat, view direction,
-    auto & t = getTranslation();
-    mCamera.lookAt( t, vec3(0) );
+    auto transform = mContext->getComponent<ec::TransformComponent>().lock();
+    mCamera.lookAt( transform->getTranslation(), vec3(0) );
     // mCamera.setViewDirection( glm::eulerAngles( getRotation() ) );
 }
 

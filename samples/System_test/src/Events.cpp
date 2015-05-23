@@ -10,21 +10,44 @@
 #include "Common.h"
 
 
-ec::EventType TestEvent::TYPE = ec::getHash("test_event");
+//DRAW DEBUG -------------------------------------------------------------/
 
-TestEventRef TestEvent::create()
+ec::EventType DrawDebugEvent::TYPE = ec::getHash("draw_debug_event");
+
+DrawDebugEventRef DrawDebugEvent::create()
 {
-    return TestEventRef( new TestEvent() );
+    return DrawDebugEventRef( new DrawDebugEvent() );
 }
 
-TestEvent::TestEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+DrawDebugEvent::DrawDebugEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
 
-const char* TestEvent::getName() const
+const char* DrawDebugEvent::getName() const
 {
-    return "test_event";
+    return "draw_debug_event";
 }
 
-ec::EventType TestEvent::getEventType() const
+ec::EventType DrawDebugEvent::getEventType() const
 {
-    return TestEvent::TYPE;
+    return DrawDebugEvent::TYPE;
+}
+
+//DRAW SHADOW -------------------------------------------------------------/
+
+ec::EventType DrawShadowEvent::TYPE = ec::getHash("draw_shadow_event");
+
+DrawShadowEventRef DrawShadowEvent::create()
+{
+    return DrawShadowEventRef( new DrawShadowEvent() );
+}
+
+DrawShadowEvent::DrawShadowEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+
+const char* DrawShadowEvent::getName() const
+{
+    return "draw_shadow_event";
+}
+
+ec::EventType DrawShadowEvent::getEventType() const
+{
+    return DrawShadowEvent::TYPE;
 }

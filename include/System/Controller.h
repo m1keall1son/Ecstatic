@@ -29,6 +29,8 @@ public:
     void                        update();
     void                        draw();
     void                        nextScene();
+    inline void                 enableDebug( bool enable = true ){ mDebug = enable; }
+    inline bool                 debugEnabled(){ return mDebug; }
     
     ~Controller();
     
@@ -43,6 +45,8 @@ private:
     EventManagerRef             mEventManager;
     SceneFactoryRef             mSceneFactory;
     ComponentFactoryRef         mComponentFactory;
+    ///TODO: debug levels
+    bool                        mDebug;
 };
 
 }

@@ -44,6 +44,32 @@ namespace ec {
     {
         return mQualifier;
     }
+    
+    ci::JsonTree Actor::serialize()
+    {
+        auto actor = ci::JsonTree();
+        actor.addChild( ci::JsonTree( "name", mName ) );
+        actor.addChild( ci::JsonTree( "id", mId ) );
+        actor.addChild( ci::JsonTree( "type", mType ) );
+        actor.addChild( ci::JsonTree( "type_qualifier", mQualifier ) );
+        ///TODO: fix this hard code
+        actor.addChild( ci::JsonTree( "create_on_scene_init", true ) );
+        actor.addChild( ci::JsonTree( "persistent", isPersistent() ) );
+        actor.addChild( ci::JsonTree( "active", isActive() ) );
+
+        auto components = ci::JsonTree::makeArray( "components" );
+        auto it = mComponents.begin();
+        auto end = mComponents.end();
+        for(; it != end; ++it ){
+            auto component = it->second->serialize();
+            components.addChild(component);
+        }
+        actor.addChild(components);
+        
+        return actor;
+        
+    }
+    
     void Actor::destroy()
     {
         mComponents.clear();
@@ -64,5 +90,13 @@ namespace ec {
         return false;
     }
     
+    void Actor::postInit()
+    {
+        auto it = mComponents.begin();
+        auto end = mComponents.end();
+        for(; it != end; ++it ){
+            it->second->postInit();
+        }
+    }
     
 }

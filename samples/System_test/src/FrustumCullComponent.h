@@ -28,6 +28,7 @@ public:
     virtual const ec::ComponentType       getType() const override;
     
     virtual bool cull() override;
+    virtual bool postInit()override{}
 
     virtual ~FrustumCullComponent();
 
@@ -37,5 +38,4 @@ protected:
 
     ec::ComponentUId mId;
 
-    
 };

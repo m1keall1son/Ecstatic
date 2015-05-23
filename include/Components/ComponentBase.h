@@ -26,6 +26,7 @@ public:
     ComponentBase& operator=( ComponentBase&& ) = delete;
     
     virtual bool                initialize( const ci::JsonTree &tree ) = 0;
+    virtual bool                postInit() = 0;
     virtual ci::JsonTree        serialize() = 0;
 
     virtual const ComponentNameType   getName() const = 0;
