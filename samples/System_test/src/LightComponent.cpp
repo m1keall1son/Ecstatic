@@ -7,9 +7,14 @@
 //
 
 #include "LightComponent.h"
+#include "DebugComponent.h"
 #include "Actor.h"
 #include "LightManager.h"
 #include "FrustumCullComponent.h"
+#include "AppSceneBase.h"
+#include "Controller.h"
+#include "Scene.h"
+#include "Events.h"
 
 using namespace ci;
 
@@ -20,14 +25,28 @@ LightComponentRef LightComponent::create( ec::Actor* context )
     return LightComponentRef( new LightComponent(context) );
 }
 
-LightComponent::LightComponent( ec::Actor * context ): ec::ComponentBase( context ), mNeedsUpdate(false), mLight( nullptr ), mId( ec::getHash(context->getName()+"_light_component"))
+LightComponent::LightComponent( ec::Actor * context ): ec::ComponentBase( context ), mNeedsUpdate(true), mLight( nullptr ), mId( ec::getHash(context->getName()+"_light_component"))
 {
+    auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &LightComponent::update), UpdateEvent::TYPE);
     
 }
 
 LightComponent::~LightComponent()
 {
+    auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &LightComponent::update), UpdateEvent::TYPE);
+}
+
+bool LightComponent::postInit()
+{
     
+    ///get bounding box;
+    auto aab_debug = mContext->getComponent<DebugComponent>().lock()->getAxisAlignedBoundingBox();
+    auto trimesh = TriMesh( geom::Cube() );
+    aab_debug = trimesh.calcBoundingBox();
+    
+    return true;
 }
 
 static void initLightBase( const LightRef& light, const ci::JsonTree& init )
@@ -213,7 +232,8 @@ static void initPointLight( const ci::PointLightRef& light, const ci::JsonTree& 
     }
     
     light->calcRange();
-    light->calcIntensity();
+    light->enableModulation(false);
+    //light->calcIntensity();
     
 }
 
@@ -241,7 +261,7 @@ static void serializePointLight( const ci::PointLightRef& light, ci::JsonTree& s
     
     save.addChild( JsonTree( "enable_shadows", light->hasShadows() ) );
     save.addChild( JsonTree( "range", light->getRange() ) );
-
+    
 }
 
 static void initSpotLight( const ci::SpotLightRef &light, const ci::JsonTree& init ){
@@ -261,6 +281,20 @@ static void initSpotLight( const ci::SpotLightRef &light, const ci::JsonTree& in
     } catch ( const ci::JsonTree::ExcChildNotFound &ex	) {
         CI_LOG_W("didn't find direction, setting default down");
         light->setDirection(vec3(0,-1,0));
+    }
+    
+    try {
+        auto dir = init["point_at"].getChildren();
+        auto end = dir.end();
+        ci::vec3 final;
+        int i = 0;
+        for( auto it = dir.begin(); it != end; ++it ) {
+            final[i++] = (*it).getValue<float>();
+        }
+        light->pointAt( final );
+        
+    } catch ( const ci::JsonTree::ExcChildNotFound &ex	) {
+        CI_LOG_W("didn't find point_at, using direction");
     }
     
     try {
@@ -309,7 +343,7 @@ static void initSpotLight( const ci::SpotLightRef &light, const ci::JsonTree& in
         CI_LOG_W("didn't find enable_shadows, setting false");
         light->enableShadows(false);
     }
-        
+    
     //radians
     try {
         auto angle = init["spot_angle"].getValue<float>();
@@ -460,17 +494,23 @@ static void serializeCapsuleLight( const ci::CapsuleLightRef& light, ci::JsonTre
 
 bool LightComponent::initialize( const ci::JsonTree &tree )
 {
-    
-    auto light = tree["light"];
-    auto type = LightManager::parseLightType( light["type"].getValue() );
-
-    switch (type) {
-        case Light::Type::Directional: { mLight = Light::createDirectional(); initDirectionalLight( std::dynamic_pointer_cast<DirectionalLight>(mLight), tree ); } break;
-        case Light::Type::Point: { mLight = Light::createPoint(); initPointLight( std::dynamic_pointer_cast<PointLight>(mLight), tree ); } break;
-        case Light::Type::Spot: { mLight = Light::createSpot(); initSpotLight( std::dynamic_pointer_cast<SpotLight>(mLight), tree ); } break;
-        case Light::Type::Wedge: { mLight = Light::createWedge(); initWedgeLight( std::dynamic_pointer_cast<WedgeLight>(mLight), tree ); } break;
-        case Light::Type::Capsule: { mLight = Light::createCapsule(); initCapsuleLight( std::dynamic_pointer_cast<CapsuleLight>(mLight), tree ); } break;
-        default: mLight = nullptr; break;
+    try{
+        auto light = tree["light"];
+        auto l_type = light["type"].getValue();
+        auto type = LightManager::parseLightType( l_type );
+        
+        
+        switch (type) {
+            case Light::Type::Directional: { mLight = Light::createDirectional(); initDirectionalLight( std::dynamic_pointer_cast<DirectionalLight>(mLight), light ); } break;
+            case Light::Type::Point: { mLight = Light::createPoint(); initPointLight( std::dynamic_pointer_cast<PointLight>(mLight), light ); } break;
+            case Light::Type::Spot: { mLight = Light::createSpot(); initSpotLight( std::dynamic_pointer_cast<SpotLight>(mLight), light ); } break;
+            case Light::Type::Wedge: { mLight = Light::createWedge(); initWedgeLight( std::dynamic_pointer_cast<WedgeLight>(mLight), light ); } break;
+            case Light::Type::Capsule: { mLight = Light::createCapsule(); initCapsuleLight( std::dynamic_pointer_cast<CapsuleLight>(mLight), light ); } break;
+            default: mLight = nullptr; break;
+        }
+    }catch( ci::JsonTree::ExcChildNotFound e ){
+        CI_LOG_E(e.what());
+        CI_LOG_E("Couldn't find light tree");
     }
     
     return true;
@@ -511,15 +551,16 @@ const ec::ComponentType       LightComponent::getType() const
     return TYPE;
 }
 
-void LightComponent::update( ec::TimeStepType delta )
+void LightComponent::update( ec::EventDataRef event )
 {
-
+    
+    CI_LOG_V( mContext->getName() + " : "+getName()+" update");
     ///i dunno
     if( mContext->hasComponent(FrustumCullComponent::TYPE) ){
         auto cull = mContext->getComponent<FrustumCullComponent>().lock();
         mLight->setVisible( cull->isVisible() );
     }
-
+    
     
 }
 

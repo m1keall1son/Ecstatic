@@ -49,7 +49,7 @@ namespace ec {
         auto init = ConfigManager::get()->retreiveActorsForScene( mName );
         
         ///call to inherited initialize for sub classes to pulll custom shit out of the config
-        initialize( init );
+        initialize( ConfigManager::get()->retreiveScene(mName) );
         
         try {
             

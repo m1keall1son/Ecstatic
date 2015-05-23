@@ -37,5 +37,8 @@ using RoomComponentRef = std::shared_ptr< class RoomComponent >;
 
 ///App EVENTS
 
+using CullEventRef = std::shared_ptr<class CullEvent>;
+using UpdateEventRef = std::shared_ptr<class UpdateEvent>;
+using DrawToMainBufferEventRef = std::shared_ptr<class DrawToMainBufferEvent>;
 using DrawDebugEventRef = std::shared_ptr<class DrawDebugEvent>;
 using DrawShadowEventRef = std::shared_ptr<class DrawShadowEvent>;

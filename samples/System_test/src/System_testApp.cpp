@@ -16,9 +16,10 @@ class System_testApp : public App {
   public:
 	void setup() override;
 	void mouseDown( MouseEvent event ) override;
+    void keyUp( KeyEvent event ) override;
 	void update() override;
 	void draw() override;
-    
+    bool mDebug = false;
 };
 
 void System_testApp::setup()
@@ -27,10 +28,21 @@ void System_testApp::setup()
     ec::Controller::create( SceneFactory::create(), ComponentFactory::create() );
     //init system
     ec::Controller::get()->initialize( JsonTree( loadAsset("config.json") ) );
+    
+    gl::enableFaceCulling();
+    gl::enableDepthRead();
+    gl::enableDepthWrite();
+    
 }
 
 void System_testApp::mouseDown( MouseEvent event )
 {
+}
+
+void System_testApp::keyUp( KeyEvent event )
+{
+    mDebug = !mDebug;
+    ec::Controller::get()->enableDebug( mDebug );
 }
 
 void System_testApp::update()
@@ -44,4 +56,9 @@ void System_testApp::draw()
     ec::Controller::get()->draw();
 }
 
-CINDER_APP( System_testApp, RendererGl )
+void prepareSettings( App::Settings*settings )
+{
+    settings->setFullScreen();
+}
+
+CINDER_APP( System_testApp, RendererGl, prepareSettings )

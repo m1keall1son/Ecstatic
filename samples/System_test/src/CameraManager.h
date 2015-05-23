@@ -19,7 +19,7 @@ public:
 
     static CameraType parseCameraType( const ec::ActorTypeQualifier &qualifier );
     
-    ci::CameraPersp& getCamera( const CameraType& cam_type );
+    const ci::CameraPersp& getCamera( const CameraType& cam_type );
     
     ~CameraManager();
     

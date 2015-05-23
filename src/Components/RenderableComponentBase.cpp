@@ -18,6 +18,7 @@
 
 #include "RenderableComponentBase.h"
 #include "FrustumCullComponent.h"
+#include "UpdatableComponentBase.h"
 #include "SystemEvents.h"
 #include "Controller.h"
 #include "Scene.h"
@@ -28,7 +29,7 @@ namespace ec{
     
     ComponentType RenderableComponentBase::TYPE = 0x004;
     
-    RenderableComponentBase::RenderableComponentBase()
+    RenderableComponentBase::RenderableComponentBase( Actor * context ):UpdatableComponentBase( context )
     {
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &RenderableComponentBase::handleSceneChange), SceneChangeEvent::TYPE);
         registerHandler();

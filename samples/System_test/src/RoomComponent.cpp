@@ -7,6 +7,7 @@
 //
 
 #include "RoomComponent.h"
+#include "DebugComponent.h"
 #include "ComponentBase.h"
 #include "TransformComponent.h"
 #include "CameraComponent.h"
@@ -21,6 +22,7 @@
 #include "LightManager.h"
 #include "ShadowMap.h"
 #include "Events.h"
+#include "SystemEvents.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -31,26 +33,30 @@ RoomComponentRef RoomComponent::create( ec::Actor* context )
 }
 
 
-void RoomComponent::update(ec::TimeStepType delta)
+void RoomComponent::update(ec::EventDataRef event )
 {
-    auto transform = mContext->getComponent<ec::TransformComponent>().lock();
-    transform->setRotation( glm::toQuat( ci::rotate( (float)getElapsedSeconds(), vec3(1.) ) ) );
+    CI_LOG_V( mContext->getName() + " : "+getName()+" update");
+
 }
 
 void RoomComponent::drawShadow(ec::EventDataRef)
 {
-    CI_LOG_V("room_component shadowDraw");
+    gl::cullFace(GL_FRONT);
+
+    CI_LOG_V( mContext->getName() + " : "+getName()+" drawShadow");
     gl::ScopedModelMatrix model;
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
     gl::multModelMatrix( transform->getModelMatrix() );
     mRoomShadow->draw();
 }
 
-void RoomComponent::draw()
+void RoomComponent::draw(ec::EventDataRef event )
 {
+    
+    CI_LOG_V( mContext->getName() + " : "+getName()+" draw");
+
     gl::cullFace(GL_FRONT);
     
-    CI_LOG_V("room_component draw");
     gl::ScopedModelMatrix model;
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
     gl::multModelMatrix( transform->getModelMatrix() );
@@ -60,6 +66,21 @@ void RoomComponent::draw()
 
 ec::ComponentType RoomComponent::TYPE = ec::RenderableComponentBase::TYPE | 0x011;
 
+bool RoomComponent::initialize(const ci::JsonTree &tree)
+{
+    try {
+        
+        auto size = tree["size"].getValue<float>();
+        mRoomSize = size;
+        
+    } catch (ci::JsonTree::ExcChildNotFound e) {
+        CI_LOG_W("found no size, defaulting to 25");
+        mRoomSize = 25;
+    }
+    
+    return true;
+}
+
 bool RoomComponent::postInit()
 {
     
@@ -68,12 +89,18 @@ bool RoomComponent::postInit()
     auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
     
     glsl->uniformBlock("uLights", scene->lights()->getLightUboLocation() );
+
     glsl->uniform("uShadowMap", 3);
     
     auto flipNormals = []( const vec3& normal ) { return -normal; };
     mRoom = ci::gl::Batch::create( ci::geom::Cube().size( vec3( mRoomSize )) >> geom::AttribFn<vec3, vec3>( geom::NORMAL, geom::NORMAL, flipNormals ), glsl );
     
-    mRoomShadow = gl::Batch::create( geom::Cube().size( vec3( mRoomSize ) ), gl::getStockShader(gl::ShaderDef()) );
+    ///get bounding box;
+    auto aab_debug = mContext->getComponent<DebugComponent>().lock()->getAxisAlignedBoundingBox();
+    auto trimesh = TriMesh( geom::Cube().size( vec3( mRoomSize ) ));
+    aab_debug = trimesh.calcBoundingBox();
+    
+    mRoomShadow = gl::Batch::create( trimesh, gl::getStockShader(gl::ShaderDef()) );
 
     CI_LOG_V("room_component Post init complete");
     
@@ -81,19 +108,27 @@ bool RoomComponent::postInit()
     return true;
 }
 
-RoomComponent::RoomComponent( ec::Actor* context ):ec::ComponentBase( context ), mId( ec::getHash( context->getName() + "_room_component" ) )
+void RoomComponent::registerListeners()
 {
     auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
-    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &RoomComponent::drawShadow), DrawDebugEvent::TYPE);
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &RoomComponent::drawShadow), DrawShadowEvent::TYPE);
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &RoomComponent::draw), DrawToMainBufferEvent::TYPE);
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &RoomComponent::update), UpdateEvent::TYPE);
+}
+
+RoomComponent::RoomComponent( ec::Actor* context ):ec::ComponentBase( context ), mId( ec::getHash( context->getName() + "_room_component" ) )
+{
+    registerListeners();
     CI_LOG_V("room_component constructed");
     //TODO this should be in initilialize with ryan's code
-    
 }
 
 RoomComponent::~RoomComponent()
 {
     auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
-    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &RoomComponent::drawShadow), DrawDebugEvent::TYPE);
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &RoomComponent::update), UpdateEvent::TYPE);
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &RoomComponent::draw), DrawToMainBufferEvent::TYPE);
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &RoomComponent::drawShadow), DrawShadowEvent::TYPE);
 }
 
 const ec::ComponentNameType RoomComponent::getName() const
@@ -111,5 +146,16 @@ const ec::ComponentType RoomComponent::getType() const
     return TYPE;
 }
 
+ci::JsonTree RoomComponent::serialize()
+{
+    auto save = ci::JsonTree();
+    save.addChild( ci::JsonTree( "name", getName() ) );
+    save.addChild( ci::JsonTree( "id", getId() ) );
+    save.addChild( ci::JsonTree( "type", "room_component" ) );
+    save.addChild( ci::JsonTree( "size", mRoomSize ) );
+
+    return save;
+    
+}
 
 

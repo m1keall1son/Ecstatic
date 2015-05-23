@@ -10,6 +10,10 @@
 #include "TransformComponent.h"
 #include "Actor.h"
 #include "ComponentBase.h"
+#include "AppSceneBase.h"
+#include "Controller.h"
+#include "Scene.h"
+#include "Events.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -23,7 +27,16 @@ CameraComponentRef CameraComponent::create( ec::Actor * context )
 
 CameraComponent::CameraComponent( ec::Actor* context ) : ec::ComponentBase( context ), mId(ec::getHash( context->getName() + "camera_component" ))
 {
+    auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &CameraComponent::update), UpdateEvent::TYPE);
+
     CI_LOG_V("camera_component constructed");
+}
+
+CameraComponent::~CameraComponent()
+{
+    auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &CameraComponent::update), UpdateEvent::TYPE);
 }
 
 bool CameraComponent::initialize( const ci::JsonTree &tree )
@@ -46,6 +59,9 @@ bool CameraComponent::initialize( const ci::JsonTree &tree )
         CI_LOG_W(std::string(ex.what())+" setting default camera");
         mCamera.setPerspective(60, getWindowAspectRatio(), .1, 1000);
     }
+    
+    mUI.setCurrentCam(mCamera);
+    mUI.connect(ci::app::getWindow());
     
     CI_LOG_V("camera_component initialized");
     
@@ -83,12 +99,13 @@ const ec::ComponentType CameraComponent::getType() const
     return TYPE;
 }
 
-void CameraComponent::update(ec::TimeStepType step)
+void CameraComponent::update(ec::EventDataRef event)
 {
-    CI_LOG_V("camera_component update");
+    CI_LOG_V( mContext->getName() + " : "+getName()+" update");
     //TODO: transform must have target (pointer to another actor location), lookat, view direction,
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
-    mCamera.lookAt( transform->getTranslation(), vec3(0) );
+    auto t = transform->getTranslation();
+    mCamera.lookAt( t, vec3(0) );
     // mCamera.setViewDirection( glm::eulerAngles( getRotation() ) );
 }
 

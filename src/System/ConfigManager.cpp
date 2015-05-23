@@ -31,6 +31,25 @@ namespace ec {
 
     }
     
+    const ci::JsonTree& ConfigManager::retreiveScene( const std::string& scene_name )
+    {
+        try {
+            
+            auto & scenes = mConfig["scenes"].getChildren();
+            
+            for( auto & scene : scenes ){
+                if( scene.getValueForKey("name") == scene_name) return scene;
+            }
+            
+        }catch( const ci::JsonTree::ExcChildNotFound &e )
+        {
+            CI_LOG_E( e.what() );
+        }
+        
+        return ci::JsonTree();
+    }
+
+    
     const ci::JsonTree& ConfigManager::retreive(const std::string &path)
     {
         try {

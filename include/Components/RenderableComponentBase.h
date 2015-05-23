@@ -26,7 +26,7 @@ namespace ec {
         
     protected:
         
-        RenderableComponentBase();
+        RenderableComponentBase( Actor * context );
         
         void handleDraw( EventDataRef );
         void handleSceneChange( EventDataRef );

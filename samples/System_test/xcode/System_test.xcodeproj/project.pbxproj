@@ -21,6 +21,8 @@
 		4F85E2F21B0BD946005BDFD7 /* Events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2ED1B0BD946005BDFD7 /* Events.cpp */; };
 		4F85E2F31B0BD946005BDFD7 /* Scenes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F85E2EF1B0BD946005BDFD7 /* Scenes.cpp */; };
 		4F85E2F51B0BD94C005BDFD7 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F85E2F41B0BD94C005BDFD7 /* config.json */; };
+		4FBEC3E11B11146100C59BA4 /* lighting.frag in Resources */ = {isa = PBXBuildFile; fileRef = 4FBEC3DF1B11146100C59BA4 /* lighting.frag */; };
+		4FBEC3E21B11146100C59BA4 /* lighting.vert in Resources */ = {isa = PBXBuildFile; fileRef = 4FBEC3E01B11146100C59BA4 /* lighting.vert */; };
 		4FC430CA1B0FCAFA00CB65ED /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430C81B0FCAFA00CB65ED /* Light.cpp */; };
 		4FC430CD1B10D94300CB65ED /* DebugComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */; };
 		4FC430D01B10E57F00CB65ED /* ShadowMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC430CE1B10E57F00CB65ED /* ShadowMap.cpp */; };
@@ -82,6 +84,8 @@
 		4F85E2F01B0BD946005BDFD7 /* Scenes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scenes.h; path = ../src/Scenes.h; sourceTree = "<group>"; };
 		4F85E2F41B0BD94C005BDFD7 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../assets/config.json; sourceTree = "<group>"; };
 		4F85E2F61B0BD9BD005BDFD7 /* Manager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Manager.hpp; path = ../../../include/System/Manager.hpp; sourceTree = "<group>"; };
+		4FBEC3DF1B11146100C59BA4 /* lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = lighting.frag; path = ../assets/lighting.frag; sourceTree = "<group>"; };
+		4FBEC3E01B11146100C59BA4 /* lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = lighting.vert; path = ../assets/lighting.vert; sourceTree = "<group>"; };
 		4FC430C81B0FCAFA00CB65ED /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../src/Light.cpp; sourceTree = "<group>"; };
 		4FC430C91B0FCAFA00CB65ED /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../src/Light.h; sourceTree = "<group>"; };
 		4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DebugComponent.cpp; path = ../src/DebugComponent.cpp; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 		080E96DDFE201D6D7F000001 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4FBEC3DE1B11145A00C59BA4 /* shaders */,
 				4FCBB0BA1B0E8B7600BCE8C0 /* Scenes */,
 				4FCBB0B81B0E8B4100BCE8C0 /* Components */,
 				4FCBB0B71B0E8B3100BCE8C0 /* Events */,
@@ -304,6 +309,15 @@
 				DEDB9E58BC2A4F03874DA9B7 /* SceneFactory.h */,
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		4FBEC3DE1B11145A00C59BA4 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				4FBEC3DF1B11146100C59BA4 /* lighting.frag */,
+				4FBEC3E01B11146100C59BA4 /* lighting.vert */,
+			);
+			name = shaders;
 			sourceTree = "<group>";
 		};
 		4FCBB0B51B0E8B1600BCE8C0 /* Lights */ = {
@@ -519,6 +533,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				67D83267B7ED4FA6B49F67DB /* CinderApp.icns in Resources */,
+				4FBEC3E11B11146100C59BA4 /* lighting.frag in Resources */,
+				4FBEC3E21B11146100C59BA4 /* lighting.vert in Resources */,
 				4F85E2F51B0BD94C005BDFD7 /* config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,7 +15,7 @@
 #include "ComponentBase.h"
 #include "AppCommon.h"
 
-class GeomTeapotComponent : public ec::RenderableComponentBase {
+class GeomTeapotComponent : public ec::ComponentBase {
     
 public:
     
@@ -24,15 +24,16 @@ public:
     static GeomTeapotComponentRef create( ec::Actor* context );
     
     bool                          initialize( const ci::JsonTree &tree )override{ return true; }
-    ci::JsonTree                  serialize()override{ return ci::JsonTree(); }
+    ci::JsonTree                  serialize()override;
     const ec::ComponentNameType   getName() const override;
     const ec::ComponentUId        getId() const override;
     const ec::ComponentType       getType() const override;
 
     bool postInit()override;
-    void draw() override;
-    void update( ec::TimeStepType delta ) override;
 
+
+    void draw( ec::EventDataRef event );
+    void update( ec::EventDataRef );
     void drawShadow( ec::EventDataRef );
 
     ~GeomTeapotComponent();

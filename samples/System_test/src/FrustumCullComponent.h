@@ -12,23 +12,25 @@
 #include "AppCommon.h"
 #include "VisibleComponentBase.h"
 
-class FrustumCullComponent : public ec::CullableComponentBase {
+class FrustumCullComponent : public ec::ComponentBase {
     
 public:
     
-    static ec::ComponentType TYPE;
+    static ec::ComponentType              TYPE;
     
-    static FrustumCullComponentRef create( ec::Actor * context );
+    static FrustumCullComponentRef        create( ec::Actor * context );
     
-    virtual bool initialize( const ci::JsonTree &tree )override{ return false; }
-    virtual ci::JsonTree serialize()override;
+    virtual bool                          initialize( const ci::JsonTree &tree )override{ return false; }
+    virtual ci::JsonTree                  serialize()override;
 
     virtual const ec::ComponentNameType   getName() const override;
     virtual const ec::ComponentUId        getId() const override;
     virtual const ec::ComponentType       getType() const override;
-    
-    virtual bool cull() override;
-    virtual bool postInit()override{}
+
+    virtual bool                          postInit()override{ return true; }
+    virtual void                          cull( ec::EventDataRef );
+
+    inline  bool                          isVisible(){ return mIsVisible; }
 
     virtual ~FrustumCullComponent();
 
@@ -37,5 +39,6 @@ protected:
     FrustumCullComponent( ec::Actor * context );
 
     ec::ComponentUId mId;
+    bool mIsVisible;
 
 };

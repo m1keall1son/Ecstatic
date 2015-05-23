@@ -5,7 +5,6 @@
 //  Created by Mike Allison on 5/22/15.
 //
 //
-
 #include "FrustumCullComponent.h"
 #include "CameraManager.h"
 #include "Actor.h"
@@ -13,26 +12,31 @@
 #include "Controller.h"
 #include "TransformComponent.h"
 #include "DebugComponent.h"
+#include "Events.h"
 
-ec::ComponentType FrustumCullComponent::TYPE = ec::CullableComponentBase::TYPE | 0x013;
+ec::ComponentType FrustumCullComponent::TYPE = 0x013;
 
 FrustumCullComponentRef FrustumCullComponent::create(ec::Actor *context)
 {
     return FrustumCullComponentRef( new FrustumCullComponent( context ) );
 }
 
-FrustumCullComponent::FrustumCullComponent( ec::Actor * context ): ec::CullableComponentBase(context), mId( ec::getHash( context->getName()+"_frustum_cull_component" ) )
+FrustumCullComponent::FrustumCullComponent( ec::Actor * context ): ec::ComponentBase(context), mId( ec::getHash( context->getName()+"_frustum_cull_component" ) )
 {
-    
+    auto scene = ec::Controller::get()->scene().lock();
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &FrustumCullComponent::cull), CullEvent::TYPE);
 }
 
 FrustumCullComponent::~FrustumCullComponent()
 {
-    
+    auto scene = ec::Controller::get()->scene().lock();
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &FrustumCullComponent::cull), CullEvent::TYPE);
 }
 
-bool FrustumCullComponent::cull()
+void FrustumCullComponent::cull( ec::EventDataRef )
 {
+ 
+    CI_LOG_V( mContext->getName() + " : "+getName()+" cull");
     
     if( mContext->isActive() ){
         
@@ -48,8 +52,6 @@ bool FrustumCullComponent::cull()
         else
             CI_LOG_E("no scene");
     }
-    return mIsVisible;
-
 }
 
 ci::JsonTree FrustumCullComponent::serialize()

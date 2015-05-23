@@ -68,7 +68,7 @@ void IntroScene::update()
     CI_LOG_V("Intro scene updating");
     
     CI_LOG_V("update components event triggered");
-    mSceneManager->triggerEvent( ec::UpdateComponentsEvent::create(ec::getFrameTimeStep() ) );
+    mSceneManager->triggerEvent( UpdateEvent::create() );
 
     //update the superclass
     AppSceneBase::update();
@@ -77,7 +77,7 @@ void IntroScene::update()
 void IntroScene::preDraw()
 {
     CI_LOG_V("cull visible event triggered");
-    mSceneManager->triggerEvent( ec::CullVisibleComponentsEvent::create( ec::getFrameTimeStep() ) );
+    mSceneManager->triggerEvent( CullEvent::create() );
 }
 
 void IntroScene::draw()
@@ -85,10 +85,12 @@ void IntroScene::draw()
     
     ///DRAW SHADOWS
     CI_LOG_V("Drawing into shadowbuffers");
-
+    
     {
         gl::ScopedFramebuffer shadow_buffer( mLights->getShadowMap()->getFbo() );
         
+        gl::clear();
+
         for( auto & light_id : mLights->getLights() ){
             
             auto light_actor = ec::ActorManager::get()->retreiveUnique(light_id).lock();
@@ -104,6 +106,7 @@ void IntroScene::draw()
                         gl::ScopedMatrices pushMatrix;
                         gl::setViewMatrix( spot_light->getViewMatrix() );
                         gl::setProjectionMatrix( spot_light->getProjectionMatrix() );
+                        gl::setModelMatrix(mat4());
                         auto shadow_view_mapping = spot_light->getMapping();
                         gl::ScopedViewport shadow_view( vec2( shadow_view_mapping.x, shadow_view_mapping.y ), vec2( shadow_view_mapping.x + shadow_view_mapping.z, shadow_view_mapping.y + shadow_view_mapping.w ) );
                         
@@ -129,7 +132,7 @@ void IntroScene::draw()
         gl::ScopedTextureBind shadowMap( mLights->getShadowMap()->getTexture(), 3 );
     
         CI_LOG_V("draw visible event triggered");
-        mSceneManager->triggerEvent( ec::DrawVisibleComponentsEvent::create( ec::getFrameTimeStep() ) );
+        mSceneManager->triggerEvent( DrawToMainBufferEvent::create() );
 
         if( ec::Controller::get()->debugEnabled() )
             mSceneManager->triggerEvent( DrawDebugEvent::create() );

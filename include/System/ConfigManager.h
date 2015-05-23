@@ -23,6 +23,7 @@ public:
     const ci::JsonTree& retreiveActorsForScene( const std::string& scene_name );
     const ci::JsonTree& retreiveComponentsForActor( const std::string& scene_name, const std::string& actor_name );
     const ci::JsonTree& retreiveActorConfig( const std::string& scene_name, const std::string& actor_name );
+    const ci::JsonTree& retreiveScene( const std::string& scene_name );
 
     
 private:

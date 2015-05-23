@@ -40,5 +40,6 @@ void ShadowMap::reset( int size )
     
     gl::Fbo::Format fboFormat;
     fboFormat.attachment( GL_DEPTH_ATTACHMENT, mTextureShadowMap );
+    fboFormat.disableColor();
     mShadowMap = gl::Fbo::create( size, size, fboFormat );
 }

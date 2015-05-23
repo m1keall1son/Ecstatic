@@ -21,7 +21,7 @@ CameraManager::CameraType CameraManager::parseCameraType( const ec::ActorTypeQua
     else return CameraType::MAIN_CAMERA;
 }
 
-ci::CameraPersp& CameraManager::getCamera( const CameraType& cam_type )
+const ci::CameraPersp& CameraManager::getCamera( const CameraType& cam_type )
 {
     auto actor_id = mCameras.find(MAIN_CAMERA)->second;
     auto actor = ec::ActorManager::get()->retreiveUnique(actor_id).lock();

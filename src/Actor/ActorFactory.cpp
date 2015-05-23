@@ -44,19 +44,25 @@ namespace ec {
         
         ActorRef actor;
         
+        std::string name, type, type_qualifier;
+        bool active, persistent;
+        
         try {
-            auto name = init["name"].getValue<std::string>();
-            auto type = init["type"].getValue<std::string>();
-            auto type_qualifier = init["type_qualifier"].getValue<std::string>();
-            auto active = init["active"].getValue<bool>();
-            auto persistent = init["persistent"].getValue<bool>();
+             name = init["name"].getValue<std::string>();
+             type = init["type"].getValue<std::string>();
+             type_qualifier = init["type_qualifier"].getValue<std::string>();
+             active = init["active"].getValue<bool>();
+             persistent = init["persistent"].getValue<bool>();
 
             ///TODO: decide how to activate
-            actor = ActorRef( new Actor( name, type, type_qualifier, active, persistent ) );
             
         } catch ( const ci::JsonTree::ExcChildNotFound &ex	) {
+            CI_LOG_E(ex.what());
             CI_LOG_E("actor name not found");
         }
+        
+        actor = ActorRef( new Actor( name, type, type_qualifier, active, persistent ) );
+
         
         try {
    
@@ -70,6 +76,7 @@ namespace ec {
             }
             
         } catch ( const ci::JsonTree::ExcChildNotFound &ex	) {
+            CI_LOG_E(ex.what());
             CI_LOG_E("components not found");
         }
     

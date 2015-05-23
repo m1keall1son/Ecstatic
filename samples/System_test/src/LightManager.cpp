@@ -53,7 +53,7 @@ LightManager::LightManager()
     lights.numLights = 0;
     lights.upDirection = vec4(0,1,0,0);
     
-    mLightUbo = ci::gl::Ubo::create( sizeof(lights), nullptr , GL_DYNAMIC_DRAW);
+    mLightUbo = ci::gl::Ubo::create( sizeof(Lights), nullptr , GL_DYNAMIC_DRAW);
     mLightUbo->bindBufferBase(mLightUboLocation);
 }
 
@@ -124,7 +124,7 @@ void LightManager::update() {
             lights.data[i] = light;
         }
         
-        mLightUbo->bufferSubData( 0, sizeof( lights ), &lights );
+        mLightUbo->bufferSubData( 0, sizeof( Lights ), &lights );
         
     }
     

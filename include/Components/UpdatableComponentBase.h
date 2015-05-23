@@ -12,7 +12,7 @@
 
 namespace ec {
 
-    class UpdatableComponentBase : virtual public ComponentBase {
+    class UpdatableComponentBase : public ComponentBase {
     
 public:
         static ComponentType            TYPE;
@@ -22,7 +22,7 @@ public:
 
 protected:
         
-        UpdatableComponentBase();
+        UpdatableComponentBase( Actor * context );
         
         void handleUpdateComponent( EventDataRef );
         void handleSceneChange( EventDataRef );

@@ -11,6 +11,7 @@
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 #include "LightComponent.h"
+#include "DebugComponent.h"
 #include "FrustumCullComponent.h"
 #include "GeomTeapotComponent.h"
 #include "RoomComponent.h"
@@ -37,6 +38,7 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
     try{
         
         type = init.getValueForKey("type");
+        CI_LOG_V( "searching factory for type: "+type );
         
     } catch (const ci::JsonTree::ExcChildNotFound &e) {
         CI_LOG_E( e.what() );
@@ -52,7 +54,7 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
     }
     else if (type == "light_component")
     {
-        CI_LOG_V("parsed dynamic_light component");
+        CI_LOG_V("parsed light_component");
         auto c = LightComponent::create(context);
         c->initialize(init);
         return c;
@@ -60,15 +62,23 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
     }
     else if (type == "geom_teapot_component")
     {
-        CI_LOG_V("parsed geom_teapot component");
+        CI_LOG_V("parsed geom_teapot");
         auto teapot = GeomTeapotComponent::create(context);
         teapot->initialize(init);
         return teapot;
         
     }
+    else if (type == "frustum_cull_component")
+    {
+        CI_LOG_V("parsed frustum_cull_component");
+        auto cull = FrustumCullComponent::create(context);
+        cull->initialize(init);
+        return cull;
+        
+    }
     else if (type == "room_component")
     {
-        CI_LOG_V("parsed room_component component");
+        CI_LOG_V("parsed room_component");
         auto room = RoomComponent::create(context);
         room->initialize(init);
         return room;
@@ -76,14 +86,23 @@ ec::ComponentBaseRef ComponentFactory::createComponent( ec::Actor* context, cons
     }
     else if (type == "camera_component")
     {
-        CI_LOG_V("parsed camera_component component");
+        CI_LOG_V("parsed camera_component");
         auto camera = CameraComponent::create(context);
         camera->initialize(init);
         return camera;
         
     }
+    else if (type == "debug_component")
+    {
+        CI_LOG_V("parsed debug_component");
+        auto debug = DebugComponent::create(context);
+        debug->initialize(init);
+        return debug;
+        
+    }
     else{
-        CI_LOG_E( "Unknown component type" );
+        ///TODO exceptions and exception handling
+        throw std::runtime_error( "Unknown component type" );
         return nullptr;
     }
     

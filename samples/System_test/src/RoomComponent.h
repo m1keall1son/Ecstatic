@@ -15,7 +15,7 @@
 #include "ComponentBase.h"
 #include "AppCommon.h"
 
-class RoomComponent : public ec::RenderableComponentBase {
+class RoomComponent : public ec::ComponentBase {
     
 public:
     
@@ -30,17 +30,20 @@ public:
     const ec::ComponentType       getType() const override;
 
     bool postInit()override;
-    void draw() override;
     
     void drawShadow( ec::EventDataRef );
     
-    void update( ec::TimeStepType delta ) override;
-    
+    void update( ec::EventDataRef );
+    void draw( ec::EventDataRef );
+
     ~RoomComponent();
 
 private:
 
     RoomComponent( ec::Actor* context );
+    
+    void registerListeners();
+    
     ci::gl::BatchRef mRoom;
     ci::gl::BatchRef mRoomShadow;
     float mRoomSize;

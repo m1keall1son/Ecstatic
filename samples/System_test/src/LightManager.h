@@ -49,7 +49,7 @@ private:
     ci::gl::UboRef              mLightUbo;
     int                         mLightUboLocation;
     ShadowMapRef                mShadowMap;
-    
+
     friend class AppSceneBase;
     
 };

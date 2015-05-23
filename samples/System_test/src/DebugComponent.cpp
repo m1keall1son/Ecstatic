@@ -17,6 +17,8 @@
 #include "Scene.h"
 #include "FrustumCullComponent.h"
 #include "Events.h"
+#include "LightComponent.h"
+#include "Light.h"
 
 ec::ComponentType DebugComponent::TYPE = 0x016;
 
@@ -106,6 +108,8 @@ const ec::ComponentType DebugComponent::getType() const
 void DebugComponent::draw( ec::EventDataRef )
 {
     
+    CI_LOG_V( mContext->getName() + " : "+getName()+" drawDebug");
+    
     ci::gl::ScopedModelMatrix pushModel;
     ci::gl::ScopedColor pushColor;
     if( mContext->hasComponent(FrustumCullComponent::TYPE) ){
@@ -118,8 +122,21 @@ void DebugComponent::draw( ec::EventDataRef )
         }
     }
     
-    auto transform = mContext->getComponent<ec::TransformComponent>().lock();
-    ci::gl::multModelMatrix( transform->getModelMatrix() );
-    ci::gl::drawStrokedCube(mObjectBoundingBox);
+    if( mContext->hasComponent(ec::TransformComponent::TYPE) )
+    {
+        auto transform = mContext->getComponent<ec::TransformComponent>().lock();
+        ci::gl::multModelMatrix( transform->getModelMatrix() );
+        ci::gl::drawStrokedCube(mObjectBoundingBox);
+
+    }else if( mContext->hasComponent(LightComponent::TYPE) ){
+        auto light = mContext->getComponent<LightComponent>().lock()->getLight();
+        
+        auto spot = std::dynamic_pointer_cast<ci::SpotLight>(light);
+        ci::gl::multModelMatrix( ci::translate(spot->getPosition()) );
+        ci::gl::drawStrokedCube(mObjectBoundingBox);
+
+    }
+    
+
     
 }

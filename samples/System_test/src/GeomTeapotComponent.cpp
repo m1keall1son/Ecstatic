@@ -7,6 +7,7 @@
 //
 
 #include "GeomTeapotComponent.h"
+#include "DebugComponent.h"
 #include "Actor.h"
 #include "Events.h"
 #include "Scene.h"
@@ -22,16 +23,21 @@ GeomTeapotComponentRef GeomTeapotComponent::create( ec::Actor* context )
 }
 
 
-void GeomTeapotComponent::update(ec::TimeStepType delta)
+void GeomTeapotComponent::update(ec::EventDataRef event )
 {
+    CI_LOG_V( mContext->getName() + " : "+getName()+" update");
+
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
     transform->setRotation( glm::toQuat( ci::rotate( (float)getElapsedSeconds(), vec3(1.) ) ) );
 }
 
-void GeomTeapotComponent::drawShadow( ec::EventDataRef )
+void GeomTeapotComponent::drawShadow( ec::EventDataRef event )
 {
     
-    CI_LOG_V("geom_teapot shadow draw");
+    CI_LOG_V( mContext->getName() + " : "+getName()+" drawShadow");
+    
+    gl::cullFace(GL_BACK);
+
     gl::ScopedModelMatrix model;
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
     gl::multModelMatrix( transform->getModelMatrix() );
@@ -39,11 +45,12 @@ void GeomTeapotComponent::drawShadow( ec::EventDataRef )
     
 }
 
-void GeomTeapotComponent::draw()
+void GeomTeapotComponent::draw( ec::EventDataRef event )
 {
+    CI_LOG_V( mContext->getName() + " : "+getName()+" draw");
+
     gl::cullFace(GL_BACK);
     
-    CI_LOG_V("geom_teapot draw");
     gl::ScopedModelMatrix model;
     auto transform = mContext->getComponent<ec::TransformComponent>().lock();
     gl::multModelMatrix( transform->getModelMatrix() );
@@ -51,7 +58,7 @@ void GeomTeapotComponent::draw()
     
 }
 
-ec::ComponentType GeomTeapotComponent::TYPE = ec::RenderableComponentBase::TYPE | 0x011;
+ec::ComponentType GeomTeapotComponent::TYPE = 0x011;
 
 bool GeomTeapotComponent::postInit()
 {
@@ -62,8 +69,14 @@ bool GeomTeapotComponent::postInit()
     
     glsl->uniformBlock("uLights", scene->lights()->getLightUboLocation() );
     glsl->uniform("uShadowMap", 3);
+
+    auto aab_debug = mContext->getComponent<DebugComponent>().lock()->getAxisAlignedBoundingBox();
     
-    mTeapot = ci::gl::Batch::create( ci::geom::Teapot(), glsl );
+    auto trimesh = TriMesh( ci::geom::Teapot() );
+    
+    aab_debug = trimesh.calcBoundingBox();
+    
+    mTeapot = ci::gl::Batch::create( trimesh , glsl );
     
     mTeapotShadow = ci::gl::Batch::create( ci::geom::Teapot(), gl::getStockShader( gl::ShaderDef() ) );
     
@@ -79,13 +92,16 @@ GeomTeapotComponent::GeomTeapotComponent( ec::Actor* context ):ec::ComponentBase
     //TODO this should be in initilialize with ryan's code
     auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
     scene->manager()->addListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::drawShadow), DrawShadowEvent::TYPE);
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::update), UpdateEvent::TYPE);
+    scene->manager()->addListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::draw), DrawToMainBufferEvent::TYPE);
 }
 
 GeomTeapotComponent::~GeomTeapotComponent()
 {
     auto scene = std::dynamic_pointer_cast<AppSceneBase>( ec::Controller::get()->scene().lock() );
     scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::drawShadow), DrawShadowEvent::TYPE);
-
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::update), UpdateEvent::TYPE);
+    scene->manager()->removeListener(fastdelegate::MakeDelegate(this, &GeomTeapotComponent::draw), DrawToMainBufferEvent::TYPE);
 }
 
 const ec::ComponentNameType GeomTeapotComponent::getName() const
@@ -103,5 +119,15 @@ const ec::ComponentType GeomTeapotComponent::getType() const
     return TYPE;
 }
 
+ci::JsonTree GeomTeapotComponent::serialize()
+{
+    auto save = ci::JsonTree();
+    save.addChild( ci::JsonTree( "name", getName() ) );
+    save.addChild( ci::JsonTree( "id", getId() ) );
+    save.addChild( ci::JsonTree( "type", "geom_teapot_component" ) );
+    
+    return save;
+    
+}
 
 

@@ -17,7 +17,7 @@ namespace ec {
     
     ComponentType UpdatableComponentBase::TYPE = 0x002;
     
-    UpdatableComponentBase::UpdatableComponentBase( )
+    UpdatableComponentBase::UpdatableComponentBase( Actor * context ):ComponentBase( context )
     {
         registerHandler();
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &UpdatableComponentBase::handleSceneChange), SceneChangeEvent::TYPE);

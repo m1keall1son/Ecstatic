@@ -21,8 +21,8 @@ public:
     static DebugComponentRef create( ec::Actor * context );
     
     virtual bool initialize( const ci::JsonTree &tree )override;
-    virtual bool postInit()overide{}
     virtual ci::JsonTree serialize()override;
+    virtual bool postInit()override{ return true; }
 
     virtual const ec::ComponentNameType   getName() const override;
     virtual const ec::ComponentUId        getId() const override;

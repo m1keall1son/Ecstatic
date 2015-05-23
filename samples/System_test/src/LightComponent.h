@@ -15,7 +15,7 @@
 #include "ComponentBase.h"
 #include "Light.h"
 
-class LightComponent : public ec::UpdatableComponentBase {
+class LightComponent : public ec::ComponentBase {
     
 public:
     
@@ -24,14 +24,14 @@ public:
     static ec::ComponentType TYPE;
 
     bool                            initialize( const ci::JsonTree &tree )override;
-    bool                            postInit()override{}
+    bool                            postInit()override;
     ci::JsonTree                    serialize()override;
     
     const ec::ComponentNameType     getName() const override;
     const ec::ComponentUId          getId() const override;
     const ec::ComponentType         getType() const override;
     
-    void update( ec::TimeStepType delta ) override;
+    void update( ec::EventDataRef );
     
     inline ci::LightRef getLight(){ return mLight; }
     inline bool needsUpdate(){ return mNeedsUpdate; }
