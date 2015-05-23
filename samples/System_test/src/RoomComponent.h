@@ -9,8 +9,6 @@
 #pragma once
 #include "cinder/gl/Batch.h"
 #include "cinder/gl/Shader.h"
-#include "RenderableComponentBase.h"
-#include "UpdatableComponentBase.h"
 #include "ComponentFactory.h"
 #include "ComponentBase.h"
 #include "AppCommon.h"

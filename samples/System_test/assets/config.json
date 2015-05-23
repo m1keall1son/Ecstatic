@@ -174,7 +174,7 @@
                                          "intensity": 1.5,
                                          "visible": true,
                                          "temperature": 300.0,
-                                         "type": "spot",
+                                         "type": "point",
                                          "point_at": [
                                                       0.0,
                                                       0.0,

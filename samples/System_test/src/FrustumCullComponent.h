@@ -10,7 +10,7 @@
 
 #include "Common.h"
 #include "AppCommon.h"
-#include "VisibleComponentBase.h"
+#include "ComponentBase.h"
 
 class FrustumCullComponent : public ec::ComponentBase {
     

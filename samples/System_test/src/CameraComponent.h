@@ -12,7 +12,6 @@
 #include "Common.h"
 #include "ComponentBase.h"
 #include "TransformComponent.h"
-#include "UpdatableComponentBase.h"
 #include "cinder/MayaCamUI.h"
 
 class CameraComponent : public ec::ComponentBase {

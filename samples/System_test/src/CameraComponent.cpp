@@ -18,7 +18,7 @@
 using namespace ci;
 using namespace ci::app;
 
-ec::ComponentType CameraComponent::TYPE = ec::UpdatableComponentBase::TYPE | 0x012;
+ec::ComponentType CameraComponent::TYPE = 0x012;
 
 CameraComponentRef CameraComponent::create( ec::Actor * context )
 {

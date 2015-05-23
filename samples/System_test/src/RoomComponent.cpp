@@ -27,6 +27,8 @@
 using namespace ci;
 using namespace ci::app;
 
+ec::ComponentType RoomComponent::TYPE = 0x011;
+
 RoomComponentRef RoomComponent::create( ec::Actor* context )
 {
     return RoomComponentRef( new RoomComponent(context) );
@@ -64,7 +66,6 @@ void RoomComponent::draw(ec::EventDataRef event )
     
 }
 
-ec::ComponentType RoomComponent::TYPE = ec::RenderableComponentBase::TYPE | 0x011;
 
 bool RoomComponent::initialize(const ci::JsonTree &tree)
 {

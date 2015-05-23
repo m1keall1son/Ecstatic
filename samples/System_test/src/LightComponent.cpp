@@ -18,7 +18,7 @@
 
 using namespace ci;
 
-ec::ComponentType LightComponent::TYPE = ec::UpdatableComponentBase::TYPE | 0x015;
+ec::ComponentType LightComponent::TYPE = 0x015;
 
 LightComponentRef LightComponent::create( ec::Actor* context )
 {

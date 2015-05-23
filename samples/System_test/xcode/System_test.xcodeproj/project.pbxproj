@@ -36,17 +36,14 @@
 		4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FCBB0CD1B0F7C0B00BCE8C0 /* AppSceneBase.cpp */; };
 		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
 		5323E6B60EAFCA7E003A9687 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B50EAFCA7E003A9687 /* QTKit.framework */; };
-		53CB2E4C02864F439668F7A2 /* UpdatableComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E6DD28E355D4B528CE3DAAE /* UpdatableComponentBase.cpp */; };
 		5625F89DA6854AF2827AA41D /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 640DCBE28588421F8E3B1066 /* Actor.cpp */; };
 		5709DC3FAD5F4141B11A8822 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC2842B9F208420D83CF85F3 /* Controller.cpp */; };
 		5D2F2DB5AB14493397985D0E /* FactoryBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 134415D68C8742A5892DDFED /* FactoryBase.cpp */; };
 		67D83267B7ED4FA6B49F67DB /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5DCCA2E7BF614B9CB07D9D09 /* CinderApp.icns */; };
-		82CCC0781273462DBBAE9EBA /* VisibleComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 16D2A8CACFF948799465D23C /* VisibleComponentBase.cpp */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		A272C6A0F29A438680E8A935 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 250774A35C34402BA2C1C541 /* EventManager.cpp */; };
 		AC880E7770E04F1199B4B589 /* ConfigManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB1D096C934E48C886F2DD5D /* ConfigManager.cpp */; };
 		B00953FF67BA483D893A8330 /* System_testApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADEEDD55EC1E451196C8BE1F /* System_testApp.cpp */; };
-		B4D30174693E431790181465 /* RenderableComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84664CEDB6E74674A286A8F0 /* RenderableComponentBase.cpp */; };
 		BADCA38BC2AB4F26A539D85D /* ComponentBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C6BD0684ADE4E29816F07A8 /* ComponentBase.cpp */; };
 		C1A7F68B158043E1B4712EA5 /* SystemEvents.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8092381842CE45C98F108FDF /* SystemEvents.cpp */; };
 		CFEEA9982FBF4AA8B1416019 /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87B38D37FC7D478A8357C510 /* Common.cpp */; };
@@ -67,13 +64,10 @@
 		08CB5D2124C9429481B0FA4F /* System_test_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = System_test_Prefix.pch; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		134415D68C8742A5892DDFED /* FactoryBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = FactoryBase.cpp; path = ../../../src/Actor/FactoryBase.cpp; sourceTree = "<group>"; };
-		16D2A8CACFF948799465D23C /* VisibleComponentBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = VisibleComponentBase.cpp; path = ../../../src/Components/VisibleComponentBase.cpp; sourceTree = "<group>"; };
-		19CD7E94E1BB4E9FB7E0E571 /* VisibleComponentBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VisibleComponentBase.h; path = ../../../include/Components/VisibleComponentBase.h; sourceTree = "<group>"; };
 		1D8C82202E05472486DCC0F9 /* EventManagerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventManagerBase.h; path = ../../../include/Event/EventManagerBase.h; sourceTree = "<group>"; };
 		250774A35C34402BA2C1C541 /* EventManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = EventManager.cpp; path = ../../../src/Event/EventManager.cpp; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		387FA94AFC744937B6E3BD7F /* UpdatableComponentBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UpdatableComponentBase.h; path = ../../../include/Components/UpdatableComponentBase.h; sourceTree = "<group>"; };
 		3C52DE006FE6402DB7CA00A7 /* ActorFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ActorFactory.h; path = ../../../include/Actor/ActorFactory.h; sourceTree = "<group>"; };
 		48DCD7769C70474399133A58 /* FastDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FastDelegate.h; path = ../../../include/Event/FastDelegate.h; sourceTree = "<group>"; };
 		4F85E2EB1B0BD946005BDFD7 /* Components.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Components.cpp; path = ../src/Components.cpp; sourceTree = "<group>"; };
@@ -86,6 +80,7 @@
 		4F85E2F61B0BD9BD005BDFD7 /* Manager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Manager.hpp; path = ../../../include/System/Manager.hpp; sourceTree = "<group>"; };
 		4FBEC3DF1B11146100C59BA4 /* lighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = lighting.frag; path = ../assets/lighting.frag; sourceTree = "<group>"; };
 		4FBEC3E01B11146100C59BA4 /* lighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = lighting.vert; path = ../assets/lighting.vert; sourceTree = "<group>"; };
+		4FBEC3E31B113F3A00C59BA4 /* TransformComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TransformComponent.h; path = ../../../include/Components/TransformComponent.h; sourceTree = "<group>"; };
 		4FC430C81B0FCAFA00CB65ED /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../src/Light.cpp; sourceTree = "<group>"; };
 		4FC430C91B0FCAFA00CB65ED /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../src/Light.h; sourceTree = "<group>"; };
 		4FC430CB1B10D94300CB65ED /* DebugComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DebugComponent.cpp; path = ../src/DebugComponent.cpp; sourceTree = "<group>"; };
@@ -115,16 +110,13 @@
 		5D10753C135A4E49A281C013 /* ActorManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = ActorManager.cpp; path = ../../../src/Actor/ActorManager.cpp; sourceTree = "<group>"; };
 		5DCCA2E7BF614B9CB07D9D09 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = CinderApp.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; };
 		5F6807AA408247F89D4BC5B0 /* ComponentBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentBase.h; path = ../../../include/Components/ComponentBase.h; sourceTree = "<group>"; };
-		60314DE232E94E2D8470245F /* RenderableComponentBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RenderableComponentBase.h; path = ../../../include/Components/RenderableComponentBase.h; sourceTree = "<group>"; };
 		640DCBE28588421F8E3B1066 /* Actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Actor.cpp; path = ../../../src/Actor/Actor.cpp; sourceTree = "<group>"; };
 		6790E7CCE4164A17A052674A /* FastDelegateBind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FastDelegateBind.h; path = ../../../include/Event/FastDelegateBind.h; sourceTree = "<group>"; };
 		69A00CE908AF4F2A97A8DBB6 /* EventManagerBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = EventManagerBase.cpp; path = ../../../src/Event/EventManagerBase.cpp; sourceTree = "<group>"; };
 		727D0B3E7E6B4306B6E54167 /* Scene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Scene.cpp; path = ../../../src/Scene/Scene.cpp; sourceTree = "<group>"; };
-		7E6DD28E355D4B528CE3DAAE /* UpdatableComponentBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = UpdatableComponentBase.cpp; path = ../../../src/Components/UpdatableComponentBase.cpp; sourceTree = "<group>"; };
 		8092381842CE45C98F108FDF /* SystemEvents.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = SystemEvents.cpp; path = ../../../src/Event/SystemEvents.cpp; sourceTree = "<group>"; };
 		81BE571D2282418FBE3CD177 /* ConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ConfigManager.h; path = ../../../include/System/ConfigManager.h; sourceTree = "<group>"; };
 		838FD2B8AAC94D4291D292E6 /* EventManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventManager.h; path = ../../../include/Event/EventManager.h; sourceTree = "<group>"; };
-		84664CEDB6E74674A286A8F0 /* RenderableComponentBase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = RenderableComponentBase.cpp; path = ../../../src/Components/RenderableComponentBase.cpp; sourceTree = "<group>"; };
 		85BCEE71171746DB8D6D464F /* FactoryBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FactoryBase.h; path = ../../../include/Actor/FactoryBase.h; sourceTree = "<group>"; };
 		86808DD870EB41F0BF7BB6FC /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Common.h; path = ../../../include/System/Common.h; sourceTree = "<group>"; };
 		87B38D37FC7D478A8357C510 /* Common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Common.cpp; path = ../../../src/System/Common.cpp; sourceTree = "<group>"; };
@@ -136,7 +128,6 @@
 		A21822696C40424E86630818 /* BaseEventData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BaseEventData.h; path = ../../../include/Event/BaseEventData.h; sourceTree = "<group>"; };
 		A68E142C66AE4C44AFB38736 /* ComponentFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ComponentFactory.h; path = ../../../include/Components/ComponentFactory.h; sourceTree = "<group>"; };
 		A7A99997A194495CA118C640 /* ActorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ActorManager.h; path = ../../../include/Actor/ActorManager.h; sourceTree = "<group>"; };
-		A880FBCB6E964592B9497C1B /* TransformComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TransformComponent.h; path = ../../../include/Components/TransformComponent.h; sourceTree = "<group>"; };
 		ADEEDD55EC1E451196C8BE1F /* System_testApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = System_testApp.cpp; path = ../src/System_testApp.cpp; sourceTree = "<group>"; };
 		BC2842B9F208420D83CF85F3 /* Controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; name = Controller.cpp; path = ../../../src/System/Controller.cpp; sourceTree = "<group>"; };
 		C62F6F030CE748B18F275CC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -459,10 +450,7 @@
 			children = (
 				5F6807AA408247F89D4BC5B0 /* ComponentBase.h */,
 				A68E142C66AE4C44AFB38736 /* ComponentFactory.h */,
-				60314DE232E94E2D8470245F /* RenderableComponentBase.h */,
-				A880FBCB6E964592B9497C1B /* TransformComponent.h */,
-				387FA94AFC744937B6E3BD7F /* UpdatableComponentBase.h */,
-				19CD7E94E1BB4E9FB7E0E571 /* VisibleComponentBase.h */,
+				4FBEC3E31B113F3A00C59BA4 /* TransformComponent.h */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -472,10 +460,7 @@
 			children = (
 				8C6BD0684ADE4E29816F07A8 /* ComponentBase.cpp */,
 				9824BBEB8F4A476C9D692692 /* ComponentFactory.cpp */,
-				84664CEDB6E74674A286A8F0 /* RenderableComponentBase.cpp */,
 				F6D279BDDAE44300B8CB6C77 /* TransformComponent.cpp */,
-				7E6DD28E355D4B528CE3DAAE /* UpdatableComponentBase.cpp */,
-				16D2A8CACFF948799465D23C /* VisibleComponentBase.cpp */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -566,13 +551,10 @@
 				4FCBB0CF1B0F7C0B00BCE8C0 /* AppSceneBase.cpp in Sources */,
 				4FC430D01B10E57F00CB65ED /* ShadowMap.cpp in Sources */,
 				D3A8C817515843A891ABA004 /* ComponentFactory.cpp in Sources */,
-				B4D30174693E431790181465 /* RenderableComponentBase.cpp in Sources */,
 				4D50689423F947BCA1E2DB4C /* TransformComponent.cpp in Sources */,
-				53CB2E4C02864F439668F7A2 /* UpdatableComponentBase.cpp in Sources */,
 				4FCBB0CC1B0F6AC200BCE8C0 /* FrustumCullComponent.cpp in Sources */,
 				4F85E2F11B0BD946005BDFD7 /* Components.cpp in Sources */,
 				4FC430CD1B10D94300CB65ED /* DebugComponent.cpp in Sources */,
-				82CCC0781273462DBBAE9EBA /* VisibleComponentBase.cpp in Sources */,
 				FB9EADD0E784483D92D2975D /* Scene.cpp in Sources */,
 				CFEEA9982FBF4AA8B1416019 /* Common.cpp in Sources */,
 				AC880E7770E04F1199B4B589 /* ConfigManager.cpp in Sources */,

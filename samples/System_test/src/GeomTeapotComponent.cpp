@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "AppSceneBase.h"
 #include "Controller.h"
+#include "TransformComponent.h"
 
 using namespace ci;
 using namespace ci::app;

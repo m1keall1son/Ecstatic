@@ -11,7 +11,6 @@
 #include "AppCommon.h"
 #include "Common.h"
 #include "TransformComponent.h"
-#include "UpdatableComponentBase.h"
 #include "ComponentBase.h"
 #include "Light.h"
 
