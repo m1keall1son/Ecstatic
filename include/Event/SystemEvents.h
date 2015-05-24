@@ -175,5 +175,26 @@ private:
     private:
         SceneChangeEvent();
     };
+    
+///----
+    class ShutDownEvent : public EventData {
+    public:
+        
+        static EventType TYPE;
+        
+        static ShutDownEventRef create();
+        
+        ~ShutDownEvent(){}
+        EventDataRef copy(){ return ShutDownEventRef(); }
+        const char* getName() const;
+        EventType getEventType() const;
+        
+        void serialize( ci::Buffer &streamOut ){}
+        void deSerialize( const ci::Buffer &streamIn ){}
+        
+    private:
+        ShutDownEvent();
+    };
+    
         
 }

@@ -19,17 +19,23 @@ namespace ec {
     
 static ActorManagerRef sActorManager = nullptr;
     
-ActorManager::ActorManager(){
+    ActorManager::ActorManager():mShuttingDown(false){
     CI_LOG_V("Actor manager initializing...");
     Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleDestroyActor ), DestoryActorEvent::TYPE );
     Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleCreateActor ), CreateActorEvent::TYPE );
-    
+    Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleShutDown ), ShutDownEvent::TYPE );
+
 }
 
 ActorManager::~ActorManager()
 {
-    Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate( this, &ActorManager::handleDestroyActor ), DestoryActorEvent::TYPE );
-    Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate( this, &ActorManager::handleCreateActor ), CreateActorEvent::TYPE );
+    mActors.clear();
+}
+    
+void ActorManager::handleShutDown(EventDataRef)
+{
+    CI_LOG_V("ActorManager handle shutdown");
+    mShuttingDown = true;
 }
 
 ActorManagerRef ActorManager::get()

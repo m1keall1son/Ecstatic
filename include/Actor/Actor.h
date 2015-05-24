@@ -42,7 +42,7 @@ public:
     inline void persistence( bool persistent ){ mPersistent = persistent; }
     inline bool isPersistent(){ return mPersistent; }
     
-    ~Actor(){}
+    ~Actor();
     
 private:
     
@@ -56,6 +56,8 @@ private:
     bool                                       mPersistent;
     ActorType                                  mType;
     ActorTypeQualifier                         mQualifier;
+    
+    void handleShutDown( EventDataRef );
     
     friend class ActorFactory;
     friend class ActorManager;

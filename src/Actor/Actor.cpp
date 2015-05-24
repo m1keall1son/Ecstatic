@@ -21,6 +21,11 @@ namespace ec {
         mUniqueId = getHash(name+std::to_string(t));
     }
     
+    Actor::~Actor()
+    {
+        mComponents.clear();
+    }
+    
     ActorId Actor::getId() const
     {
         return mId;

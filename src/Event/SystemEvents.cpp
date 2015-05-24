@@ -162,4 +162,25 @@ namespace ec {
         return SceneChangeEvent::TYPE;
     }
     
+    //SHUT DOWN  ----------------------------------------------------//
+    
+    EventType ShutDownEvent::TYPE = getHash("shut_down_event");
+    
+    ShutDownEventRef ShutDownEvent::create()
+    {
+        return ShutDownEventRef( new ShutDownEvent );
+    }
+    
+    ShutDownEvent::ShutDownEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+    
+    const char* ShutDownEvent::getName() const
+    {
+        return "shutdown_event";
+    }
+    
+    EventType ShutDownEvent::getEventType() const
+    {
+        return ShutDownEvent::TYPE;
+    }
+    
 }

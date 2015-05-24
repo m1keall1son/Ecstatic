@@ -53,6 +53,11 @@ protected:
     EventManagerRef                             mSceneManager;
     SceneId                                     mId;
     
+private:
+    
+    void handleShutDown( EventDataRef );
+    bool mShuttingDown;
+    
     friend class                     Controller;
 };
     

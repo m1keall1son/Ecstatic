@@ -19,20 +19,30 @@ namespace ec {
     
     Scene::~Scene()
     {
-        mSceneManager->clear();
-        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
-        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
-        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
-        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
+        if(!mShuttingDown){
+            mSceneManager->clear();
+            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
+            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
+            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
+            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
+            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
+        }
     }
 
-    Scene::Scene( const std::string& name ):mName(name), mId( getHash(name) )
+    Scene::Scene( const std::string& name ):mName(name), mId( getHash(name) ), mShuttingDown(false)
     {
         mSceneManager = EventManager::create("Scene "+mName+" Manager");
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
+    }
+    
+    void Scene::handleShutDown(EventDataRef)
+    {
+        mShuttingDown = true;
+        //mSceneManager->clear();
     }
 
     void Scene::initialize( const std::vector<ActorUId>& persistent_actors )

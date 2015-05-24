@@ -10,6 +10,7 @@
 
 #include "Common.h"
 #include "cinder/Json.h"
+#include "SystemEvents.h"
 
 namespace ec {
     

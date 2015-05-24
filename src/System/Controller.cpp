@@ -26,6 +26,7 @@ namespace ec {
     
     Controller::~Controller()
     {
+        CI_LOG_V("controller destructor");
         mScenes.clear();
         mEventManager->clear();
     }

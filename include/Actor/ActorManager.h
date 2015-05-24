@@ -36,6 +36,8 @@ private:
     
     ActorManager();
     std::map< ActorUId, ActorRef > mActors;
+    bool    mShuttingDown;
+    void handleShutDown(EventDataRef);
     
 };
 

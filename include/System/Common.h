@@ -71,9 +71,7 @@ using SceneUpdateEventRef = std::shared_ptr< class SceneUpdateEvent >;
 using ScenePreDrawEventRef = std::shared_ptr< class ScenePreDrawEvent >;
 using SceneDrawEventRef = std::shared_ptr< class SceneDrawEvent >;
 using SceneChangeEventRef = std::shared_ptr< class SceneChangeEvent >;
-using UpdateComponentsEventRef = std::shared_ptr< class UpdateComponentsEvent >;
-using CullVisibleComponentsEventRef = std::shared_ptr< class CullVisibleComponentsEvent >;
-using DrawVisibleComponentsEventRef = std::shared_ptr< class DrawVisibleComponentsEvent >;
+using ShutDownEventRef = std::shared_ptr< class ShutDownEvent >;
 
 ///RENDERER
     
