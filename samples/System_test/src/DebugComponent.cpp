@@ -131,10 +131,18 @@ void DebugComponent::draw( ec::EventDataRef )
     }else if( mContext->hasComponent(LightComponent::TYPE) ){
         auto light = mContext->getComponent<LightComponent>().lock()->getLight();
         
-        auto spot = std::dynamic_pointer_cast<ci::SpotLight>(light);
-        ci::gl::multModelMatrix( ci::translate(spot->getPosition()) );
-        ci::gl::drawStrokedCube(mObjectBoundingBox);
+        if( light->getType() ==  ci::Light::Type::Spot ){
+            auto spot = std::dynamic_pointer_cast<ci::SpotLight>(light);
+            ci::gl::multModelMatrix( ci::translate(spot->getPosition()) );
+            ci::gl::drawStrokedCube(mObjectBoundingBox);
 
+        }else if( light->getType() == ci::Light::Type::Point ){
+            auto point = std::dynamic_pointer_cast<ci::PointLight>(light);
+            ci::gl::multModelMatrix( ci::translate(point->getPosition()) );
+            ci::gl::drawStrokedCube(mObjectBoundingBox);
+        }
+        
+     
     }
     
 
