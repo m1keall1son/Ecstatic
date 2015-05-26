@@ -183,4 +183,27 @@ namespace ec {
         return ShutDownEvent::TYPE;
     }
     
+    
+    //SHUT DOWN  ----------------------------------------------------//
+    
+    EventType SerializeAllEvent::TYPE = getHash("serialize_all");
+    
+    SerializeAllEventRef SerializeAllEvent::create()
+    {
+        return SerializeAllEventRef( new SerializeAllEvent );
+    }
+    
+    SerializeAllEvent::SerializeAllEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+    
+    const char* SerializeAllEvent::getName() const
+    {
+        return "serialize_all";
+    }
+    
+    EventType SerializeAllEvent::getEventType() const
+    {
+        return SerializeAllEvent::TYPE;
+    }
+
+    
 }

@@ -72,7 +72,8 @@ using ScenePreDrawEventRef = std::shared_ptr< class ScenePreDrawEvent >;
 using SceneDrawEventRef = std::shared_ptr< class SceneDrawEvent >;
 using SceneChangeEventRef = std::shared_ptr< class SceneChangeEvent >;
 using ShutDownEventRef = std::shared_ptr< class ShutDownEvent >;
-
+using SerializeAllEventRef = std::shared_ptr< class SerializeAllEvent >;
+    
 ///RENDERER
     
 using RendererRef = std::shared_ptr< class Renderer >;

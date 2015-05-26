@@ -88,9 +88,8 @@ ci::JsonTree TransformComponent::serialize()
 {
     
     auto save = ci::JsonTree();
-    save.addChild( ci::JsonTree( "name", getName() ) );
-    save.addChild( ci::JsonTree( "id", getId() ) );
-    save.addChild( ci::JsonTree( "type", "transform_component" ) );
+    save.addChild( ci::JsonTree( "type", getName() ) );
+    save.addChild( ci::JsonTree( "id", (uint64_t)getId() ) );
     
     auto scale = ci::JsonTree::makeArray( "scale" );
     for( int i = 0; i<3; i++ ){
