@@ -32,6 +32,7 @@ public:
     void                        nextScene();
     inline void                 enableDebug( bool enable = true ){ mDebug = enable; }
     inline bool                 debugEnabled(){ return mDebug; }
+    void                        enableGUI( bool enable = true );
     
     ~Controller();
     
@@ -46,6 +47,7 @@ private:
     EventManagerRef             mEventManager;
     SceneFactoryRef             mSceneFactory;
     ComponentFactoryRef         mComponentFactory;
+    GUIManagerRef               mGuiManager;
     ///TODO: debug levels
     bool                        mDebug;
 };

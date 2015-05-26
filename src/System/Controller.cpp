@@ -13,6 +13,8 @@
 #include "SystemEvents.h"
 #include "SceneFactory.h"
 #include "ActorManager.h"
+#include "GUIManager.h"
+#include "SystemEvents.h"
 
 namespace ec {
     
@@ -41,6 +43,9 @@ namespace ec {
     {
         CI_LOG_V("controller constructing...");
         mEventManager = EventManager::create("global event manager");
+        mGuiManager = GUIManager::create();
+        mGuiManager->enableGUI(false);
+        mEventManager->addListener(fastdelegate::MakeDelegate(mGuiManager.get(), &GUIManager::handleUninit), UninitGUIEvent::TYPE);
     }
     
     void Controller::initialize(const ci::JsonTree &configuration)
@@ -63,7 +68,8 @@ namespace ec {
         CI_LOG_V("controller initializing scene: "+ mCurrentScene->getName() +"...");
         mCurrentScene->initialize();
         CI_LOG_V("controller scene: "+ mCurrentScene->getName() +" initialized");
-
+        CI_LOG_V("Initialize scen GUIs");
+        mGuiManager->postInit();
     }
     
     void Controller::nextScene()
@@ -89,5 +95,12 @@ namespace ec {
         mEventManager->queueEvent( SceneDrawEvent::create( getFrameTimeStep() ) );
         CI_LOG_V("global even manager update");
         mEventManager->update();
+        CI_LOG_V("draw GUIs");
+        mGuiManager->draw();
+    }
+    
+    void Controller::enableGUI( bool enable )
+    {
+        mGuiManager->enableGUI( enable );
     }
 }

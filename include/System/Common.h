@@ -73,11 +73,13 @@ using SceneDrawEventRef = std::shared_ptr< class SceneDrawEvent >;
 using SceneChangeEventRef = std::shared_ptr< class SceneChangeEvent >;
 using ShutDownEventRef = std::shared_ptr< class ShutDownEvent >;
 using SerializeAllEventRef = std::shared_ptr< class SerializeAllEvent >;
+using InitGUIEventRef = std::shared_ptr< class InitGUIEvent >;
+using UninitGUIEventRef = std::shared_ptr< class UninitGUIEvent >;
+
+///GUI
     
-///RENDERER
+using GUIManagerRef = std::shared_ptr< class GUIManager >;
     
-using RendererRef = std::shared_ptr< class Renderer >;
-using GeomManagerRef = std::shared_ptr< class GeomManager >;
 
     
 }

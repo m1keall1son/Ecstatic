@@ -26,12 +26,15 @@ namespace ec {
             Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
             Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
             Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
+            Controller::get()->eventManager()->removeListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
+
         }
     }
 
     Scene::Scene( const std::string& name ):mName(name), mId( getHash(name) ), mShuttingDown(false)
     {
         mSceneManager = EventManager::create("Scene "+mName+" Manager");
+        Controller::get()->eventManager()->addListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
         Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
@@ -101,8 +104,11 @@ namespace ec {
     {
         CI_LOG_V("shutting down scene...");
         std::vector<ActorUId> persistent_actors;
+        std::vector<ActorUId> uninit_gui;
         for( auto & a : mActors)
         {
+            uninit_gui.push_back(a.first);
+            
             if( auto actor = a.second.lock() )
             {
                 if(actor->isPersistent())
@@ -111,6 +117,9 @@ namespace ec {
                     actor->destroy();
             }
         }
+        
+        Controller::get()->eventManager()->triggerEvent(UninitGUIEvent::create(uninit_gui));
+        
         CI_LOG_V("returning "+std::to_string(persistent_actors.size())+" persistent actors");
         mActors.clear();
         mSceneManager->clear();
@@ -146,6 +155,12 @@ namespace ec {
     {
         auto e = std::dynamic_pointer_cast<ScenePreDrawEvent>(event);
         preDraw();
+    }
+    
+    void Scene::handleInitGUI(EventDataRef event)
+    {
+        auto e = std::dynamic_pointer_cast<InitGUIEvent>(event);
+        initGUI(e->getGUIManager());
     }
     
     void Scene::update()

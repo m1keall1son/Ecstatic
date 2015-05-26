@@ -14,6 +14,7 @@
 #include "Common.h"
 #include "Manager.hpp"
 #include "BaseEventData.h"
+#include "cinder/params/Params.h"
 
 namespace ec {
 
@@ -33,6 +34,9 @@ public:
     void            destroy();
     
     void            postInit();
+    
+    ci::params::InterfaceGlRef initGUI();
+    void            saveActorToFile();
     
     ci::JsonTree    serialize();
     

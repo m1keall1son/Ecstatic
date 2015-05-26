@@ -75,6 +75,19 @@ namespace ec {
         
     }
     
+    
+    void Actor::saveActorToFile()
+    {
+        
+        auto actor = serialize();
+        std::vector<std::string> allowed_extensions( 1, "json" );
+        auto save_path = ci::app::getSaveFilePath( ci::app::getAssetDirectories()[0], allowed_extensions );
+        if(save_path != "")
+            actor.write( save_path, ci::JsonTree::WriteOptions().indented() );
+        
+    }
+    
+    
     void Actor::destroy()
     {
         mComponents.clear();
@@ -102,6 +115,18 @@ namespace ec {
         for(; it != end; ++it ){
             it->second->postInit();
         }
+    }
+    
+    ci::params::InterfaceGlRef Actor::initGUI()
+    {
+        auto params = ci::params::InterfaceGl::create(ci::app::getWindow(), getName(), ci::vec2(200,400));
+        auto saveFn = std::bind( &Actor::saveActorToFile, this );
+        for( auto& component : mComponents ){
+            component.second->loadGUI(params);
+        }
+        params->addButton("Save Actor", saveFn);
+        
+        return params;
     }
     
 }

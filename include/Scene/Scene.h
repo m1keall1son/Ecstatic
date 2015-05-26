@@ -41,12 +41,16 @@ protected:
     virtual void                    preDraw() = 0;
     virtual void                    draw() = 0;
     virtual void                    postDraw() = 0;
+    virtual void                    initGUI( const GUIManagerRef& gui_manager ) = 0;
+    
     
     ActorWeakRef                    getActor( const ActorUId& _id );
     virtual void                    handleReturnActorCreate( EventDataRef );
     virtual void                    handleSceneUpdate( EventDataRef );
     virtual void                    handleScenePreDraw( EventDataRef ); //culling
     virtual void                    handleSceneDraw( EventDataRef );
+    virtual void                    handleInitGUI( EventDataRef );
+
     
     std::string                                 mName;
     std::map<ActorUId, ActorWeakRef>            mActors;

@@ -186,7 +186,7 @@ namespace ec {
     
     //SHUT DOWN  ----------------------------------------------------//
     
-    EventType SerializeAllEvent::TYPE = getHash("serialize_all");
+    EventType SerializeAllEvent::TYPE = getHash("serialize_all_event");
     
     SerializeAllEventRef SerializeAllEvent::create()
     {
@@ -197,13 +197,54 @@ namespace ec {
     
     const char* SerializeAllEvent::getName() const
     {
-        return "serialize_all";
+        return "serialize_all_event";
     }
     
     EventType SerializeAllEvent::getEventType() const
     {
         return SerializeAllEvent::TYPE;
     }
+    
+    //INIT GUI  ----------------------------------------------------//
+    
+    EventType InitGUIEvent::TYPE = getHash("init_gui_event");
+    
+    InitGUIEventRef InitGUIEvent::create(const GUIManagerRef& gui_manager )
+    {
+        return InitGUIEventRef( new InitGUIEvent( gui_manager ) );
+    }
+    
+    InitGUIEvent::InitGUIEvent(const GUIManagerRef& gui_manager ) : ec::EventData( cinder::app::getElapsedSeconds() ), mManager(gui_manager){}
+    
+    const char* InitGUIEvent::getName() const
+    {
+        return "init_gui_event";
+    }
+    
+    EventType InitGUIEvent::getEventType() const
+    {
+        return InitGUIEvent::TYPE;
+    }
 
+    //UNINIT GUI  ----------------------------------------------------//
+    
+    EventType UninitGUIEvent::TYPE = getHash("uninit_gui_event");
+    
+    UninitGUIEventRef UninitGUIEvent::create(const std::vector<IdType>& ids )
+    {
+        return UninitGUIEventRef( new UninitGUIEvent( ids ) );
+    }
+    
+    UninitGUIEvent::UninitGUIEvent(const std::vector<IdType>& ids ) : ec::EventData( cinder::app::getElapsedSeconds() ), mIds(ids){}
+    
+    const char* UninitGUIEvent::getName() const
+    {
+        return "uninit_gui_event";
+    }
+    
+    EventType UninitGUIEvent::getEventType() const
+    {
+        return UninitGUIEvent::TYPE;
+    }
     
 }

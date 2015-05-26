@@ -216,5 +216,51 @@ private:
         SerializeAllEvent();
     };
 
+    
+    //-----------------------------------------------
+    class InitGUIEvent : public EventData {
+    public:
         
+        static EventType TYPE;
+        
+        static InitGUIEventRef create( const GUIManagerRef& gui_manager );
+        
+        ~InitGUIEvent(){}
+        EventDataRef copy(){ return InitGUIEventRef(); }
+        const char* getName() const;
+        EventType getEventType() const;
+        
+        void serialize( ci::Buffer &streamOut ){}
+        void deSerialize( const ci::Buffer &streamIn ){}
+        
+        inline GUIManagerRef getGUIManager(){ return mManager; }
+        
+    private:
+        InitGUIEvent(const GUIManagerRef& gui_manager );
+        GUIManagerRef mManager;
+    };
+    
+    //-----------------------------------------------
+    class UninitGUIEvent : public EventData {
+    public:
+        
+        static EventType TYPE;
+        
+        static UninitGUIEventRef create( const std::vector<IdType>& ids_to_remove );
+        
+        ~UninitGUIEvent(){}
+        EventDataRef copy(){ return UninitGUIEventRef(); }
+        const char* getName() const;
+        EventType getEventType() const;
+        
+        void serialize( ci::Buffer &streamOut ){}
+        void deSerialize( const ci::Buffer &streamIn ){}
+        
+        inline std::vector<IdType>& getIds(){ return mIds; }
+        
+    private:
+        UninitGUIEvent( const std::vector<IdType>& ids_to_remove );
+        std::vector<IdType> mIds;
+    };
+    
 }

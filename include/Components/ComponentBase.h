@@ -9,6 +9,7 @@
 #pragma once
 #include "Common.h"
 #include "cinder/Json.h"
+#include "cinder/params/Params.h"
 
 namespace ec {
 
@@ -28,6 +29,7 @@ public:
     virtual bool                initialize( const ci::JsonTree &tree ) = 0;
     virtual bool                postInit() = 0;
     virtual ci::JsonTree        serialize() = 0;
+    virtual void                loadGUI( const ci::params::InterfaceGlRef &gui ) = 0;
 
     virtual const ComponentNameType   getName() const = 0;
     virtual const ComponentUId        getId() const = 0;
