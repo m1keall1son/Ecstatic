@@ -31,18 +31,19 @@ protected:
     
     Scene( const std::string& name );
     
+    ///TODO: whats up with my two initialize functions?  find a better way to carry over persistent actors, in an event probably
+    
     virtual void                    initialize( const std::vector<ActorUId>& persistent_actors = std::vector<ActorUId>(0) );
     virtual std::vector<ActorUId>   shutdown();
-    
 
     virtual void                    initialize( const ci::JsonTree &init ) = 0;
-
+    virtual void                    postInit() = 0;
+    
     virtual void                    update(); //has to update the event manager
     virtual void                    preDraw() = 0;
     virtual void                    draw() = 0;
     virtual void                    postDraw() = 0;
     virtual void                    initGUI( const GUIManagerRef& gui_manager ) = 0;
-    
     
     ActorWeakRef                    getActor( const ActorUId& _id );
     virtual void                    handleReturnActorCreate( EventDataRef );

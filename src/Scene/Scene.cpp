@@ -98,6 +98,8 @@ namespace ec {
             a->postInit();
         }
         
+        postInit();
+                
     }
     
     std::vector<ActorUId> Scene::shutdown()

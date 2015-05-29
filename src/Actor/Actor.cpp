@@ -17,8 +17,8 @@
 namespace ec {
         
     Actor::Actor( const ActorNameType &name, const ActorType &type, const ActorTypeQualifier &qualifier,  bool activate, bool persistence ): mName(name), mId( getHash(name) ), mActive(activate), mPersistent(persistence), mType(type), mQualifier(qualifier){
-        long int t = static_cast<long int>(time(nullptr));
-        mUniqueId = getHash(name+std::to_string(t));
+        //long int t = static_cast<long int>(time(nullptr));
+        mUniqueId = getHash(name);
     }
     
     Actor::~Actor()
@@ -120,6 +120,7 @@ namespace ec {
     ci::params::InterfaceGlRef Actor::initGUI()
     {
         auto params = ci::params::InterfaceGl::create(ci::app::getWindow(), getName(), ci::vec2(200,400));
+        params->hide();
         auto saveFn = std::bind( &Actor::saveActorToFile, this );
         for( auto& component : mComponents ){
             component.second->loadGUI(params);

@@ -21,6 +21,7 @@ public:
     static GUIManagerRef create();
     
     void instertGUI( const IdType& _id, const ci::params::InterfaceGlRef &gui );
+    ci::params::InterfaceGlRef findGUI( const IdType& _id );
     
     void removeGUI( const IdType& _id );
     void removeGUIs( const std::vector<IdType>& _ids );

@@ -67,8 +67,8 @@ namespace ec {
         CI_LOG_V("controller initialized");
         CI_LOG_V("controller initializing scene: "+ mCurrentScene->getName() +"...");
         mCurrentScene->initialize();
-        CI_LOG_V("controller scene: "+ mCurrentScene->getName() +" initialized");
-        CI_LOG_V("Initialize scen GUIs");
+        CI_LOG_V("controller scene: "+ mCurrentScene->getName() +" initialized!");
+        CI_LOG_V("Initialize scene GUIs");
         mGuiManager->postInit();
     }
     

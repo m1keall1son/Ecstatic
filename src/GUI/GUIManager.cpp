@@ -9,6 +9,7 @@
 #include "GUIManager.h"
 #include "Controller.h"
 #include "EventManager.h"
+#include "cinder/Log.h"
 
 namespace ec {
     
@@ -30,6 +31,16 @@ namespace ec {
     void GUIManager::instertGUI(const IdType &_id, const ci::params::InterfaceGlRef &gui)
     {
         mSubGUIs.insert( std::make_pair( _id, gui ) );
+    }
+    
+    ci::params::InterfaceGlRef GUIManager::findGUI( const IdType& _id )
+    {
+        auto found = mSubGUIs.find(_id);
+        if(found != mSubGUIs.end())return found->second;
+        else{
+            CI_LOG_E("GUI NOT FOUND");
+            return nullptr;
+        }
     }
     
     void GUIManager::removeGUI( const IdType& _id )
