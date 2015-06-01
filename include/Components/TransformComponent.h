@@ -95,8 +95,9 @@ public:
     virtual const ec::ComponentUId        getId() const override;
     virtual const ec::ComponentType       getType() const override;
     virtual void                          loadGUI( const ci::params::InterfaceGlRef &gui )override;
-
-    virtual bool postInit()override{}
+    virtual void                          cleanup()override{}
+    
+    virtual bool postInit()override{ return true; }
     
 	inline const ci::mat4& getModelMatrix() const { return mComponents->getModelMatrix(); }
 	

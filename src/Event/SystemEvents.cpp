@@ -143,6 +143,27 @@ namespace ec {
     
     //SCENE CHANGE  ----------------------------------------------------//
     
+    EventType RequestSceneChangeEvent::TYPE = getHash("Request_scene_change_event");
+    
+    RequestSceneChangeEventRef RequestSceneChangeEvent::create()
+    {
+        return RequestSceneChangeEventRef( new RequestSceneChangeEvent );
+    }
+    
+    RequestSceneChangeEvent::RequestSceneChangeEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+    
+    const char* RequestSceneChangeEvent::getName() const
+    {
+        return "Request_scene_change_event";
+    }
+    
+    EventType RequestSceneChangeEvent::getEventType() const
+    {
+        return RequestSceneChangeEvent::TYPE;
+    }
+    
+    //SCENE CHANGE  ----------------------------------------------------//
+    
     EventType SceneChangeEvent::TYPE = getHash("scene_change_event");
     
     SceneChangeEventRef SceneChangeEvent::create()

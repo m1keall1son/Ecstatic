@@ -15,7 +15,7 @@ namespace ec {
 
 class Actor;
     
-class ComponentBase {
+class ComponentBase : public std::enable_shared_from_this<ComponentBase> {
     
 public:
     
@@ -28,6 +28,7 @@ public:
     
     virtual bool                initialize( const ci::JsonTree &tree ) = 0;
     virtual bool                postInit() = 0;
+    virtual void                cleanup() = 0;
     virtual ci::JsonTree        serialize() = 0;
     virtual void                loadGUI( const ci::params::InterfaceGlRef &gui ) = 0;
 
@@ -40,7 +41,7 @@ public:
 protected:
     
     Actor* mContext;
-    
+    bool   mInitialized;
 };
 
 }

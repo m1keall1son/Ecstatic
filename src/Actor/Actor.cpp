@@ -112,8 +112,9 @@ namespace ec {
     {
         auto it = mComponents.begin();
         auto end = mComponents.end();
-        for(; it != end; ++it ){
+        while(it != end ){
             it->second->postInit();
+            ++it;
         }
     }
     

@@ -11,9 +11,9 @@
 
 namespace ec {
     
-ComponentBase::ComponentBase( Actor* context ) : mContext(context)
+ComponentBase::ComponentBase( Actor* context ) : mContext(context),mInitialized(false)
 {
-    
+
 }
 
 }

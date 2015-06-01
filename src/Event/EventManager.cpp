@@ -69,7 +69,7 @@ bool EventManager::removeListener( const EventListenerDelegate &eventDelegate, c
 		for( auto listIt = listeners.begin(); listIt != listeners.end(); ++listIt ) {
 			if( eventDelegate == (*listIt) ) {
 				listeners.erase(listIt);
-				LOG_EVENT("Successfully removed delegate function from event type: ");
+                CI_LOG_V("Successfully removed delegate for event type: " + to_string( type ) );
 				success = true;
 				break;
 			}

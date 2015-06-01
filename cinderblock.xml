@@ -17,6 +17,7 @@
     <headerPattern>include/Scene/*.h</headerPattern>
     <headerPattern>include/System/*.h</headerPattern>
     <headerPattern>include/System/*.hpp</headerPattern>
+    <headerPattern>include/GUI/*.h</headerPattern>
     <sourcePattern>src/*.cpp</sourcePattern>
 	<sourcePattern>src/Event/*.cpp</sourcePattern>
     <sourcePattern>src/Actor/*.cpp</sourcePattern>
@@ -24,6 +25,7 @@
     <sourcePattern>src/Renderer/*.cpp</sourcePattern>
     <sourcePattern>src/Scene/*.cpp</sourcePattern>
     <sourcePattern>src/System/*.cpp</sourcePattern>
+    <sourcePattern>src/GUI/*.cpp</sourcePattern>
 
 </block>
 </cinder>

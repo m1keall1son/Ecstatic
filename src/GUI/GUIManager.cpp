@@ -25,7 +25,6 @@ namespace ec {
     
     GUIManager::~GUIManager()
     {
-        
     }
     
     void GUIManager::instertGUI(const IdType &_id, const ci::params::InterfaceGlRef &gui)
@@ -52,6 +51,12 @@ namespace ec {
         for(auto & _id : _ids){
             if( mSubGUIs.find(_id) != mSubGUIs.end() )mSubGUIs.erase(_id);
         }
+    }
+    
+    void GUIManager::handleSceneChange(ec::EventDataRef)
+    {
+        ec::Controller::get()->eventManager()->triggerEvent(InitGUIEvent::create( shared_from_this() ));
+        enableGUI(false);
     }
     
     void GUIManager::postInit()

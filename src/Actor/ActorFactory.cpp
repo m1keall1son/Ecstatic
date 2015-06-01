@@ -65,14 +65,15 @@ namespace ec {
 
         
         try {
-   
+            
             auto & components = init["components"].getChildren();
             auto end = components.end();
-        
+            
             for( auto compIt = components.begin(); compIt != end; ++compIt ) {
+                
                 ComponentBaseRef component;
                 component = Controller::get()->componentFactory()->createComponent( actor.get(), *compIt );
-                actor->mComponents.insert( std::make_pair( component->getType(), component ));
+                actor->mComponents.insert( std::make_pair( component->getType(), component ) );
             }
             
         } catch ( const ci::JsonTree::ExcChildNotFound &ex	) {

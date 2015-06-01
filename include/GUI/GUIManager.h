@@ -39,10 +39,13 @@ protected:
     
     GUIManager();
     
+    void handleSceneChange( ec::EventDataRef );
     
     ci::params::InterfaceGlRef mMainGUI;
     SubGuiSet mSubGUIs;
     
+    friend class Controller;
+            
 };
     
 }

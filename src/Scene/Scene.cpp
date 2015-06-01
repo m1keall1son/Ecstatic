@@ -20,26 +20,12 @@ namespace ec {
     Scene::~Scene()
     {
         if(!mShuttingDown){
-            mSceneManager->clear();
-            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
-            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
-            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
-            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
-            Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
-            Controller::get()->eventManager()->removeListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
 
         }
     }
 
     Scene::Scene( const std::string& name ):mName(name), mId( getHash(name) ), mShuttingDown(false)
     {
-        mSceneManager = EventManager::create("Scene "+mName+" Manager");
-        Controller::get()->eventManager()->addListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
-        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
-        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
-        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
-        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
-        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
     }
     
     void Scene::handleShutDown(EventDataRef)
@@ -50,6 +36,13 @@ namespace ec {
 
     void Scene::initialize( const std::vector<ActorUId>& persistent_actors )
     {
+        mSceneManager = EventManager::create("Scene "+mName+" Manager");
+        Controller::get()->eventManager()->addListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
         
         if( !persistent_actors.empty() ){
             for(auto &id : persistent_actors)
@@ -90,20 +83,40 @@ namespace ec {
             CI_LOG_E("actors not found in init");
         }
         
+      
         ///POST INITIALIZE ALL ACTORS
+        auto actor = mActors.begin();
+        auto end = mActors.end();
         
-        for( auto & actor : mActors )
+        while( actor != end )
         {
-            auto a = actor.second.lock();
-            a->postInit();
+            if(auto a = (*actor).second.lock()){
+                a->postInit();
+                ++actor;
+            }else{
+                CI_LOG_E("Actor is missing");
+                ec::Controller::get()->eventManager()->triggerEvent(DestoryActorEvent::create((*actor).first));
+                actor = mActors.erase(actor);
+            }
         }
         
         postInit();
-                
+        
+        ///run setup events;
+        manager()->update();
+        
     }
     
     std::vector<ActorUId> Scene::shutdown()
     {
+        
+        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneUpdate), SceneUpdateEvent::TYPE );
+        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleReturnActorCreate), ReturnActorCreatedEvent::TYPE );
+        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleScenePreDraw), ScenePreDrawEvent::TYPE );
+        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleSceneDraw), SceneDrawEvent::TYPE );
+        Controller::get()->eventManager()->removeListener( fastdelegate::MakeDelegate(this, &Scene::handleShutDown), ShutDownEvent::TYPE );
+        Controller::get()->eventManager()->removeListener(fastdelegate::MakeDelegate(this, &Scene::handleInitGUI), InitGUIEvent::TYPE);
+        
         CI_LOG_V("shutting down scene...");
         std::vector<ActorUId> persistent_actors;
         std::vector<ActorUId> uninit_gui;
@@ -116,7 +129,8 @@ namespace ec {
                 if(actor->isPersistent())
                     persistent_actors.push_back(a.first);
                 else
-                    actor->destroy();
+                    ec::Controller::get()->eventManager()->triggerEvent(DestoryActorEvent::create(a.first));
+
             }
         }
         
@@ -131,10 +145,12 @@ namespace ec {
     void Scene::handleReturnActorCreate( EventDataRef event )
     {
         auto e = std::dynamic_pointer_cast<ReturnActorCreatedEvent>(event);
-        CI_LOG_V("receieved actor create info");
         auto actorWeak = e->getActorWeakRef();
         if ( auto actorStrong = actorWeak.lock() ) {
+            CI_LOG_V("receieved actor create info: "+ actorStrong->getName());
             mActors.insert( std::make_pair(actorStrong->getUId(), actorWeak) );
+        }else{
+            CI_LOG_V("receieved actor create info: FAILED TO CREATE ACTOR");
         }
     }
     

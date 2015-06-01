@@ -37,7 +37,7 @@ using EventManagerRef = std::shared_ptr<class EventManager>;
     
 ///COMPONENTS
     
-using ComponentType = uint8_t;
+using ComponentType = IdType;
 using ComponentNameType = std::string;
 using ComponentUId = IdType;
 using ComponentBaseRef = std::shared_ptr< class ComponentBase >;
@@ -75,6 +75,7 @@ using ShutDownEventRef = std::shared_ptr< class ShutDownEvent >;
 using SerializeAllEventRef = std::shared_ptr< class SerializeAllEvent >;
 using InitGUIEventRef = std::shared_ptr< class InitGUIEvent >;
 using UninitGUIEventRef = std::shared_ptr< class UninitGUIEvent >;
+using RequestSceneChangeEventRef = std::shared_ptr< class RequestSceneChangeEvent >;
 
 ///GUI
     

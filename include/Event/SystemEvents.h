@@ -157,6 +157,28 @@ private:
         TimeStepType mDelta;
     };
     
+    
+    class RequestSceneChangeEvent : public EventData {
+    public:
+        
+        static EventType TYPE;
+        
+        static RequestSceneChangeEventRef create();
+        
+        ~RequestSceneChangeEvent(){}
+        EventDataRef copy(){ return RequestSceneChangeEventRef(); }
+        const char* getName() const;
+        EventType getEventType() const;
+        
+        void serialize( ci::Buffer &streamOut ){}
+        void deSerialize( const ci::Buffer &streamIn ){}
+        
+    private:
+        RequestSceneChangeEvent();
+    };
+    
+    
+    
     class SceneChangeEvent : public EventData {
     public:
         

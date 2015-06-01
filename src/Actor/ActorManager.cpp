@@ -14,6 +14,7 @@
 #include "Controller.h"
 #include "Scene.h"
 #include "SystemEvents.h"
+#include "ComponentFactory.h"
 
 namespace ec {
     
@@ -51,6 +52,8 @@ void ActorManager::handleDestroyActor(EventDataRef event)
     CI_LOG_V("Actor manager received destroy actor event");
     auto e = std::dynamic_pointer_cast<DestoryActorEvent>(event);
     CI_LOG_V( "Erasing actor: "+ std::to_string( e->getActorUId() ) + " from actor manager" );
+    auto actor = mActors.find( e->getActorUId() );
+    for( auto & component : actor->second->mComponents )component.second->cleanup();
     mActors.erase( e->getActorUId() );
 }
 
@@ -61,7 +64,7 @@ void ActorManager::handleCreateActor(EventDataRef event)
     CI_LOG_V( "Create actor: "+ e->getReferenceName() );
     auto init  = ConfigManager::get()->retreiveActorConfig( e->getReferenceScene(), e->getReferenceName() );
     auto actor = ActorFactory::get()->createActor( init );
-    mActors.insert( std::make_pair(actor->getUId(), actor) );
+    mActors.insert( std::make_pair(actor->getUId(), actor) );    
     auto scene_id = Controller::get()->scene().lock()->getId();
     Controller::get()->eventManager()->triggerEvent( ReturnActorCreatedEvent::create( scene_id, actor) );
 }

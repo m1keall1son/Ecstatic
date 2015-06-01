@@ -20,10 +20,15 @@ public:
     
     ///TODO: some kind of state that says what mode we are in
     
-    static ControllerRef        create( const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
+    static void                 initializeRift( bool enable = true );
+    static bool                 isRiftEnabled();
+    static double               getAverageFps();
+    
+    static ControllerRef        create( ci::app::App* conxtext, const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
     static ControllerRef        get();
     void                        initialize( const ci::JsonTree &configuration );
     inline SceneWeakRef         scene() { return mCurrentScene; }
+    inline GUIManagerRef        guiManager() { return mGuiManager; }
     inline SceneFactoryRef      sceneFactory() { return mSceneFactory; }
     inline EventManagerRef      eventManager(){ return mEventManager; }
     inline ComponentFactoryRef  componentFactory() { return mComponentFactory; }
@@ -38,18 +43,23 @@ public:
     
 private:
     
-    Controller( const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
+    Controller( ci::app::App* context, const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
+    
+    void                        handleRequestNextScene(ec::EventDataRef);
     
     int                         mSceneIndex;
     SceneRef                    mCurrentScene;
     ConfigManagerRef            mConfigManager;
-    std::vector<SceneRef>       mScenes;
+    std::deque<SceneRef>        mScenes;
     EventManagerRef             mEventManager;
     SceneFactoryRef             mSceneFactory;
     ComponentFactoryRef         mComponentFactory;
     GUIManagerRef               mGuiManager;
     ///TODO: debug levels
     bool                        mDebug;
+    
+    ci::app::App*               mContext;
+    
 };
 
 }
