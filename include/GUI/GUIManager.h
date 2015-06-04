@@ -29,6 +29,8 @@ public:
     void postInit();
     void draw();
     
+    void clear();
+    
     void handleUninit( EventDataRef );
     
     void enableGUI( bool enable = true );

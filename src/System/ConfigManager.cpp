@@ -52,14 +52,19 @@ namespace ec {
     
     const ci::JsonTree& ConfigManager::retreive(const std::string &path)
     {
-        try {
-            return mConfig[path];
-        }catch( const ci::JsonTree::ExcChildNotFound &e )
-        {
-            CI_LOG_E( e.what() );
-        }
         
-        return ci::JsonTree();
+        if(path==""){
+            return mConfig;
+        }else{
+            try {
+                return mConfig[path];
+            }catch( const ci::JsonTree::ExcChildNotFound &e )
+            {
+                CI_LOG_E( e.what() );
+            }
+            
+            return ci::JsonTree();
+        }
     }
     
     const ci::JsonTree& ConfigManager::retreiveActorsForScene( const std::string& scene_name )

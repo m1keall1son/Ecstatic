@@ -120,7 +120,7 @@ namespace ec {
     
     ci::params::InterfaceGlRef Actor::initGUI()
     {
-        auto params = ci::params::InterfaceGl::create(ci::app::getWindow(), getName(), ci::vec2(200,400));
+        auto params = ci::params::InterfaceGl::create( getName(), ci::vec2(200,400));
         params->hide();
         auto saveFn = std::bind( &Actor::saveActorToFile, this );
         for( auto& component : mComponents ){

@@ -69,6 +69,24 @@ void ActorManager::handleCreateActor(EventDataRef event)
     Controller::get()->eventManager()->triggerEvent( ReturnActorCreatedEvent::create( scene_id, actor) );
 }
     
+void ActorManager::restart()
+    {
+    
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleDestroyActor ), DestoryActorEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleCreateActor ), CreateActorEvent::TYPE );
+        Controller::get()->eventManager()->addListener( fastdelegate::MakeDelegate( this, &ActorManager::handleShutDown ), ShutDownEvent::TYPE );
+
+        auto it = mActors.begin();
+        auto end = mActors.end();
+        while( it != end ){
+            if( !it->second->isPersistent() ){
+                it = mActors.erase(it);
+            }else{
+                ++it;
+            }
+        }
+    }
+    
     
 bool ActorManager::actorExists( const ActorUId &_uid )
 {

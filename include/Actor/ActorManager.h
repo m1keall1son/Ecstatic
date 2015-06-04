@@ -30,6 +30,8 @@ public:
     
     void handleCreateActor( EventDataRef );
     
+    void restart();
+    
     ~ActorManager();
     
 private:

@@ -184,7 +184,7 @@ private:
         
         static EventType TYPE;
         
-        static SceneChangeEventRef create();
+        static SceneChangeEventRef create( const std::string& scene_name );
         
         ~SceneChangeEvent(){}
         EventDataRef copy(){ return SceneChangeEventRef(); }
@@ -194,8 +194,11 @@ private:
         void serialize( ci::Buffer &streamOut ){}
         void deSerialize( const ci::Buffer &streamIn ){}
         
+        inline std::string& getNextSceneName(){ return mName; }
+        
     private:
-        SceneChangeEvent();
+        SceneChangeEvent(const std::string& scene_name);
+        std::string mName;
     };
     
 //-----------------------------------------------
@@ -283,6 +286,26 @@ private:
     private:
         UninitGUIEvent( const std::vector<IdType>& ids_to_remove );
         std::vector<IdType> mIds;
+    };
+    
+    //-----------------------------------------------
+    class RestartEvent : public EventData {
+    public:
+        
+        static EventType TYPE;
+        
+        static RestartEventRef create();
+        
+        ~RestartEvent(){}
+        EventDataRef copy(){ return UninitGUIEventRef(); }
+        const char* getName() const;
+        EventType getEventType() const;
+        
+        void serialize( ci::Buffer &streamOut ){}
+        void deSerialize( const ci::Buffer &streamIn ){}
+                
+    private:
+        RestartEvent( );
     };
     
 }

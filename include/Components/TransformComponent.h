@@ -28,7 +28,6 @@ public:
 			TRANSLATION = 1 << 2
 		};
 		
-	private:
 		
 		Transformables() : mUpdated(0),	mScale( ci::vec3( 1.0f ) ),
 		mTranslation( ci::vec3( 0.0f ) )

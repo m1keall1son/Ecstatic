@@ -21,7 +21,9 @@ public:
     ///TODO: some kind of state that says what mode we are in
     
     static void                 initializeRift( bool enable = true );
+    static void                 initializeKinect( bool enable = true );
     static bool                 isRiftEnabled();
+    static bool                 isKinectEnabled();
     static double               getAverageFps();
     
     static ControllerRef        create( ci::app::App* conxtext, const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
@@ -38,6 +40,7 @@ public:
     inline void                 enableDebug( bool enable = true ){ mDebug = enable; }
     inline bool                 debugEnabled(){ return mDebug; }
     void                        enableGUI( bool enable = true );
+    void                        restart();
     
     ~Controller();
     
@@ -46,7 +49,7 @@ private:
     Controller( ci::app::App* context, const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
     
     void                        handleRequestNextScene(ec::EventDataRef);
-    
+    void                        handleRestart( ec::EventDataRef );
     int                         mSceneIndex;
     SceneRef                    mCurrentScene;
     ConfigManagerRef            mConfigManager;
@@ -57,6 +60,7 @@ private:
     GUIManagerRef               mGuiManager;
     ///TODO: debug levels
     bool                        mDebug;
+    bool                        mShouldRestart;
     
     ci::app::App*               mContext;
     

@@ -76,6 +76,7 @@ using SerializeAllEventRef = std::shared_ptr< class SerializeAllEvent >;
 using InitGUIEventRef = std::shared_ptr< class InitGUIEvent >;
 using UninitGUIEventRef = std::shared_ptr< class UninitGUIEvent >;
 using RequestSceneChangeEventRef = std::shared_ptr< class RequestSceneChangeEvent >;
+using RestartEventRef = std::shared_ptr< class RestartEvent >;
 
 ///GUI
     

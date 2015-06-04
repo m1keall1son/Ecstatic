@@ -166,12 +166,12 @@ namespace ec {
     
     EventType SceneChangeEvent::TYPE = getHash("scene_change_event");
     
-    SceneChangeEventRef SceneChangeEvent::create()
+    SceneChangeEventRef SceneChangeEvent::create(const std::string& scene_name)
     {
-        return SceneChangeEventRef( new SceneChangeEvent );
+        return SceneChangeEventRef( new SceneChangeEvent(scene_name) );
     }
     
-    SceneChangeEvent::SceneChangeEvent() : ec::EventData( cinder::app::getElapsedSeconds() ){}
+    SceneChangeEvent::SceneChangeEvent(const std::string& scene_name) : ec::EventData( cinder::app::getElapsedSeconds() ),mName(scene_name){}
     
     const char* SceneChangeEvent::getName() const
     {
@@ -267,5 +267,24 @@ namespace ec {
     {
         return UninitGUIEvent::TYPE;
     }
+    //RESTART EVENT  ----------------------------------------------------//
     
+    EventType RestartEvent::TYPE = getHash("restart_event");
+    
+    RestartEventRef RestartEvent::create( )
+    {
+        return RestartEventRef( new RestartEvent( ) );
+    }
+    
+    RestartEvent::RestartEvent( ) : ec::EventData( cinder::app::getElapsedSeconds() ){}
+    
+    const char* RestartEvent::getName() const
+    {
+        return "restart_event";
+    }
+    
+    EventType RestartEvent::getEventType() const
+    {
+        return RestartEvent::TYPE;
+    }
 }

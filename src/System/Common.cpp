@@ -21,7 +21,9 @@ uint64_t getHash( const std::string &to_hash )
     
 TimeStepType getFrameTimeStep(){
     TimeStepType ret;
-    ret = ci::app::getElapsedSeconds() - sPrevTime;
+    auto s = ci::app::getElapsedSeconds();
+    ret = s - sPrevTime;
+    sPrevTime = s;
     if(ret > MAX_DELTA_TIME)ret=0.;
     return ret;
 }

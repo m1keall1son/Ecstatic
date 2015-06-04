@@ -20,7 +20,7 @@ namespace ec {
     
     GUIManager::GUIManager()
     {
-        mMainGUI = ci::params::InterfaceGl::create(ci::app::getWindow(), "Main GUI", ci::vec2(200,300));
+       // mMainGUI = ci::params::InterfaceGl::create(ci::app::getWindow(), "Main GUI", ci::vec2(200,300));
     }
     
     GUIManager::~GUIManager()
@@ -65,7 +65,8 @@ namespace ec {
     }
     void GUIManager::draw()
     {
-        mMainGUI->draw();
+        if(mMainGUI)
+            mMainGUI->draw();
         for(auto&gui:mSubGUIs)gui.second->draw();
     }
     
@@ -77,15 +78,23 @@ namespace ec {
         }
     }
     
+    void GUIManager::clear()
+    {
+        mSubGUIs.clear();
+        mMainGUI = nullptr;
+    }
+    
     void GUIManager::enableGUI(bool enable)
     {
         if(enable){
-            mMainGUI->show();
+            if(mMainGUI)
+                mMainGUI->show();
             for(auto gui : mSubGUIs)gui.second->show();
         }
         else
         {
-            mMainGUI->hide();
+            if(mMainGUI)
+                mMainGUI->hide();
             for(auto gui : mSubGUIs)gui.second->hide();
         }
     }
