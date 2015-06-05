@@ -40,7 +40,7 @@ public:
     inline void                 enableDebug( bool enable = true ){ mDebug = enable; }
     inline bool                 debugEnabled(){ return mDebug; }
     void                        enableGUI( bool enable = true );
-    void                        restart();
+    void                        reset( bool set = true );
     
     ~Controller();
     
@@ -48,6 +48,9 @@ private:
     
     Controller( ci::app::App* context, const SceneFactoryRef& scene_factory, const ComponentFactoryRef& component_factory );
     
+    
+    void                        restart();
+
     void                        handleRequestNextScene(ec::EventDataRef);
     void                        handleRestart( ec::EventDataRef );
     int                         mSceneIndex;

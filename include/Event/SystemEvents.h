@@ -248,7 +248,7 @@ private:
         
         static EventType TYPE;
         
-        static InitGUIEventRef create( const GUIManagerRef& gui_manager );
+        static InitGUIEventRef create( GUIManager* gui_manager );
         
         ~InitGUIEvent(){}
         EventDataRef copy(){ return InitGUIEventRef(); }
@@ -258,11 +258,11 @@ private:
         void serialize( ci::Buffer &streamOut ){}
         void deSerialize( const ci::Buffer &streamIn ){}
         
-        inline GUIManagerRef getGUIManager(){ return mManager; }
+        inline GUIManager* getGUIManager(){ return mManager; }
         
     private:
-        InitGUIEvent(const GUIManagerRef& gui_manager );
-        GUIManagerRef mManager;
+        InitGUIEvent( GUIManager* gui_manager );
+        GUIManager* mManager;
     };
     
     //-----------------------------------------------

@@ -93,11 +93,13 @@ namespace ec {
         mEventManager->addListener(fastdelegate::MakeDelegate(this, &Controller::handleRestart), RestartEvent::TYPE);
     }
     
+    void Controller::reset( bool set ){ mShouldRestart = set; mGuiManager->getMainGui()->clear(); }
+
+    
     void Controller::restart()
     {
 
         mEventManager = EventManager::create("global event manager");
-        mGuiManager->clear();
         mGuiManager->enableGUI(false);
         mEventManager->addListener(fastdelegate::MakeDelegate(mGuiManager.get(), &GUIManager::handleUninit), UninitGUIEvent::TYPE);
         mEventManager->addListener(fastdelegate::MakeDelegate(mGuiManager.get(), &GUIManager::handleSceneChange), ec::SceneChangeEvent::TYPE);
@@ -132,7 +134,6 @@ namespace ec {
         CI_LOG_V("controller scene: "+ mCurrentScene->getName() +" initialized!");
         CI_LOG_V("Initialize scene GUIs");
         mGuiManager->postInit();
-        
         mShouldRestart = false;
     }
     
@@ -180,11 +181,13 @@ namespace ec {
         mCurrentScene = next;
         next->initialize( persisten_actors );
         mScenes.pop_front();
+        mGuiManager->clear();
         mEventManager->triggerEvent(SceneChangeEvent::create( mCurrentScene->getName() ));
     }
     
     void Controller::update()
     {
+        if(mShouldRestart)restart();
         CI_LOG_V("update queued");
         mEventManager->queueEvent( SceneUpdateEvent::create( getFrameTimeStep() ) );
         sFPS = mContext->getAverageFps();
@@ -199,7 +202,6 @@ namespace ec {
         CI_LOG_V("global even manager update");
         mEventManager->update();
         CI_LOG_V("draw GUIs");
-        if(!isRiftEnabled())mGuiManager->draw();
         
         if( debugEnabled() ){//showFps
             ci::gl::ScopedMatrices pushMatrix;
@@ -207,7 +209,8 @@ namespace ec {
             ci::gl::ScopedViewport view( vec2(0), mContext->getWindowSize() );
             ci::gl::drawString(std::to_string( mContext->getAverageFps()),ci::vec2(10));
         }
-        if(mShouldRestart)restart();
+        
+        if(!isRiftEnabled())mGuiManager->draw();
     }
     
     void Controller::enableGUI( bool enable )

@@ -122,16 +122,16 @@ bool TransformComponent::hasChanged()
 void TransformComponent::loadGUI(const ci::params::InterfaceGlRef &gui)
     {
         gui->addSeparator();
-        gui->addText( getName() );
+        gui->addText( mContext->getName() +" : "+ getName());
         
         auto updateTranslationFn = [&]{ mComponents->mUpdated |= Transformables::UpdatedType::TRANSLATION; };
-        gui->addParam("translation", &mComponents->mTranslation).updateFn(updateTranslationFn);
+        gui->addParam(mContext->getName() +" : translation", &mComponents->mTranslation).updateFn(updateTranslationFn);
         
         auto updateScaleFn = [&]{ mComponents->mUpdated |= Transformables::UpdatedType::SCALE; };
-        gui->addParam("scale", &mComponents->mScale).updateFn(updateScaleFn);
+        gui->addParam(mContext->getName() +" : scale", &mComponents->mScale).updateFn(updateScaleFn);
         
         auto updateRotationFn = [&]{ mComponents->mUpdated |= Transformables::UpdatedType::ROTATION; };
-        gui->addParam("rotation", &mComponents->mRotation).updateFn(updateRotationFn);
+        gui->addParam(mContext->getName() +" : rotation", &mComponents->mRotation).updateFn(updateRotationFn);
 
     }
     

@@ -35,7 +35,8 @@ public:
     
     void            postInit();
     
-    ci::params::InterfaceGlRef initGUI();
+    void            initGUI( ec::GUIManager* gui_manager );
+//    ci::params::InterfaceGlRef initGUI();
     void            saveActorToFile();
     
     ci::JsonTree    serialize();

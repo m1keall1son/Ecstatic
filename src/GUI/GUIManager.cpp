@@ -20,7 +20,7 @@ namespace ec {
     
     GUIManager::GUIManager()
     {
-       // mMainGUI = ci::params::InterfaceGl::create(ci::app::getWindow(), "Main GUI", ci::vec2(200,300));
+        mMainGUI = ci::params::InterfaceGl::create(ci::app::getWindow(), "Main GUI", ci::vec2(200,300));
     }
     
     GUIManager::~GUIManager()
@@ -55,13 +55,15 @@ namespace ec {
     
     void GUIManager::handleSceneChange(ec::EventDataRef)
     {
-        ec::Controller::get()->eventManager()->triggerEvent(InitGUIEvent::create( shared_from_this() ));
+        mMainGUI->clear();
+        ec::Controller::get()->eventManager()->triggerEvent(InitGUIEvent::create( this ));
         enableGUI(false);
     }
     
     void GUIManager::postInit()
     {
-        ec::Controller::get()->eventManager()->triggerEvent(InitGUIEvent::create( shared_from_this() ));
+        mMainGUI->clear();
+        ec::Controller::get()->eventManager()->triggerEvent(InitGUIEvent::create( this ));
     }
     void GUIManager::draw()
     {
@@ -81,7 +83,6 @@ namespace ec {
     void GUIManager::clear()
     {
         mSubGUIs.clear();
-        mMainGUI = nullptr;
     }
     
     void GUIManager::enableGUI(bool enable)

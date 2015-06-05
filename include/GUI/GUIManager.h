@@ -12,7 +12,7 @@
 
 namespace ec {
     
-class GUIManager : public std::enable_shared_from_this<GUIManager> {
+class GUIManager {
     
 public:
     
@@ -34,6 +34,8 @@ public:
     void handleUninit( EventDataRef );
     
     void enableGUI( bool enable = true );
+    
+    ci::params::InterfaceGlRef getMainGui(){ return mMainGUI; }
     
     ~GUIManager();
     

@@ -230,12 +230,12 @@ namespace ec {
     
     EventType InitGUIEvent::TYPE = getHash("init_gui_event");
     
-    InitGUIEventRef InitGUIEvent::create(const GUIManagerRef& gui_manager )
+    InitGUIEventRef InitGUIEvent::create( GUIManager* gui_manager )
     {
         return InitGUIEventRef( new InitGUIEvent( gui_manager ) );
     }
     
-    InitGUIEvent::InitGUIEvent(const GUIManagerRef& gui_manager ) : ec::EventData( cinder::app::getElapsedSeconds() ), mManager(gui_manager){}
+    InitGUIEvent::InitGUIEvent( GUIManager* gui_manager ) : ec::EventData( cinder::app::getElapsedSeconds() ), mManager(gui_manager){}
     
     const char* InitGUIEvent::getName() const
     {

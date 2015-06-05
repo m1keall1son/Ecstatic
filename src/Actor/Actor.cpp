@@ -13,6 +13,7 @@
 #include "ActorFactory.h"
 #include "ConfigManager.h"
 #include "SystemEvents.h"
+#include "GUIManager.h"
 
 namespace ec {
         
@@ -118,17 +119,30 @@ namespace ec {
         }
     }
     
-    ci::params::InterfaceGlRef Actor::initGUI()
+//    ci::params::InterfaceGlRef Actor::initGUI()
+//    {
+//        auto params = ci::params::InterfaceGl::create( getName(), ci::vec2(200,400));
+//        params->hide();
+//        auto saveFn = std::bind( &Actor::saveActorToFile, this );
+//        for( auto& component : mComponents ){
+//            component.second->loadGUI(params);
+//        }
+//        params->addButton("Save Actor", saveFn);
+//        
+//        return params;
+//    }
+    
+    void Actor::initGUI(ec::GUIManager *gui_manager)
     {
-        auto params = ci::params::InterfaceGl::create( getName(), ci::vec2(200,400));
-        params->hide();
+        auto gui = gui_manager->getMainGui();
+        gui->addSeparator();
+        gui->addText("Actor: "+getName());
         auto saveFn = std::bind( &Actor::saveActorToFile, this );
         for( auto& component : mComponents ){
-            component.second->loadGUI(params);
+            component.second->loadGUI( gui );
         }
-        params->addButton("Save Actor", saveFn);
+        gui->addButton("Save Actor", saveFn);
         
-        return params;
     }
     
 }
