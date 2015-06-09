@@ -109,6 +109,42 @@ namespace ec {
         return ci::JsonTree();
     }
 
+    const ci::JsonTree& ConfigManager::retreiveComponent( const std::string& scene_name, const std::string& actor_name, const std::string& component_type  )
+    {
+        try {
+            
+            auto & scenes = mConfig["scenes"].getChildren();
+            
+            for( auto & scene : scenes ){
+                if( scene.getValueForKey("name") == scene_name){
+                    
+                    auto & actors = scene["actors"].getChildren();
+                    for( auto & actor : actors ){
+                        auto actor_tmp = actor.getValueForKey("name");
+                        if( actor_tmp == actor_name){
+                            
+                            auto & components = actor["components"].getChildren();
+                            for( auto & component : components ){
+                                auto tmp_type = component["type"].getValue();
+                                if( tmp_type == component_type ){
+                                    return component;
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+            }
+            
+        }catch( const ci::JsonTree::ExcChildNotFound &e )
+        {
+            CI_LOG_E( e.what() );
+        }
+        
+        return ci::JsonTree();
+    }
+    
     const ci::JsonTree& ConfigManager::retreiveActorConfig( const std::string& scene_name, const std::string& actor_name )
     {
         try {

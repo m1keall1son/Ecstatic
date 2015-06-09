@@ -71,11 +71,24 @@ namespace ec {
                 CI_LOG_V("found actor: "+actor_name);
 
                 auto onInit = it->getValueForKey<bool>( "create_on_scene_init" );
+                auto persistent = it->getValueForKey<bool>( "persistent" );
                 
-                if( onInit ){
+                if( persistent ){
+                    //make sure its not already in there
+                   if( !ec::ActorManager::get()->actorExists( ec::getHash(actor_name) ) ){
+                       if( onInit ){
+                           //make sure it shuld be created on scene init
+                           CI_LOG_V("creating actor: "+actor_name);
+                           Controller::get()->eventManager()->triggerEvent( CreateActorEvent::create( mName, actor_name) );
+                       }
+                    }
+                }else if (onInit){
+                    //make sure it shuld be created on scene init
                     CI_LOG_V("creating actor: "+actor_name);
                     Controller::get()->eventManager()->triggerEvent( CreateActorEvent::create( mName, actor_name) );
+
                 }
+
                 
             }
             

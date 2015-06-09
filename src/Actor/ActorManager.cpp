@@ -79,11 +79,7 @@ void ActorManager::restart()
         auto it = mActors.begin();
         auto end = mActors.end();
         while( it != end ){
-            if( !it->second->isPersistent() ){
-                it = mActors.erase(it);
-            }else{
-                ++it;
-            }
+            it = mActors.erase(it);
         }
     }
     
